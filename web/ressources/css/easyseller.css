@@ -1,0 +1,14 @@
+/** ePolar, gestion des orientations des eleves du colleges et lycees @author: Delrodie AMOIKON @version: V0.1 @date: Jeudi 13 Avril 2017 */
+@font-face { font-family: "HoboStd"; src: url("../fonts/HoboStd.otf"); }
+@font-face { font-family: "Gothicb"; src: url("../fonts/GOTHICB.TTF"); }
+.logo-easyseller { font-family: "HoboStd"; font-style: normal; font-size: 3.5em; color: white !important; font-weight: 700; letter-spacing: .03em; line-height: 70px; }
+.logo-easyseller span.logo-p { font-family: "Copperplate"; text-transform: uppercase; }
+.logo-easyseller span.logo-e { color: #03a9f3; font-size: 1.2em; }
+
+.logo { color: #fff !important; font-weight: 700; letter-spacing: .03em; }
+.logo span.logo-e { font-family: "HoboStd"; font-size: 1.8em; }
+.logo span.logo-s { font-family: "HoboStd"; font-size: 1.8em; }
+.logo span.logo-asy { font-family: "HoboStd"; font-size: 1.1em; color: #fff !important; }
+.logo span.logo-eller { font-family: "HoboStd"; font-size: 1.1em; color: #ccc !important; }
+
+.customvtab { width: 100%; border: #000000 dotted 1px; }
