@@ -96,6 +96,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">N°</th>
+                                                        <th class="text-center">Codes</th>
                                                         <th class="text-center">Noms</th>
                                                         <th class="text-center">Nombre de produits</th>
                                                         <th class="text-center">Statut</th>
@@ -107,6 +108,7 @@
                                                         {% set i = i + 1 %}
                                                         <tr>
                                                             <td class="text-right">{{ i }}</td>
+                                                            <td class="text-center">{{ categorie.code }}</td>
                                                             <td><a href="{{ path('categorie_edit', { 'slug': categorie.slug }) }}">{{ categorie.nom }}</a></td>
                                                             <td class="text-center">4</td>
                                                             <td class="text-center">
