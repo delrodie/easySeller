@@ -10,4 +10,36 @@ namespace AppBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+    * Fonction de recherche du ID de la categorie
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 021/04/2017
+    * Since: v1.0
+    */
+    public function getCategorieID()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('c')
+           ->select('count(c.id)')
+       ;
+        ;
+        try {
+
+            $id = $qb->getQuery()->getSingleScalarResult();
+
+            $id = $id + 1;
+
+            if ($id < 10) {
+               $num = '0'.$id;
+            } else{
+               $num = $id;
+            }
+
+            return $num;
+
+        } catch (NoResultException $e) {
+            return $e;
+        }
+    }
 }

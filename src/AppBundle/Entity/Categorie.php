@@ -26,6 +26,13 @@ class Categorie
     /**
      * @var string
      *
+     * @ORM\Column(name="code", type="string", length=3, unique=true)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="nom", type="string", length=75, unique=true)
      */
@@ -41,7 +48,7 @@ class Categorie
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"nom"})
+     * @Gedmo\Slug(fields={"code","nom"})
      * @ORM\Column(name="slug", type="string", length=75)
      */
     private $slug;
@@ -258,4 +265,28 @@ class Categorie
     }
 
 
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Categorie
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 }

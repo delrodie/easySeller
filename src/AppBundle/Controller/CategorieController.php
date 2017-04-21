@@ -28,6 +28,19 @@ class CategorieController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $nom = $categorie->getNom();
+
+            // Initiale de la categorie
+            $initial = substr($nom, 0, 1);
+
+            // Position de la categorie en cours
+            $num = $em->getRepository('AppBundle:Categorie')->getCategorieID();
+
+            $code = $initial.''.$num;
+
+            $categorie->setCode($code);
+
             $em->persist($categorie);
             $em->flush();
 
@@ -102,6 +115,18 @@ class CategorieController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $nom = $categorie->getNom();
+            $num = $categorie->getCode();
+
+            // Initiale de la categorie
+            $initial = substr($nom, 0, 1);
+            $numero = substr($num, 1, 2);
+
+            $code = $initial.''.$numero;
+
+            $categorie->setCode($code);
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('notice', "La catégorie ".$categorie->getNom()." a été modifiée avec succès.!");
