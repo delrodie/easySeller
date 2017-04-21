@@ -6,13 +6,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Categorie
+ * Produit
  *
- * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategorieRepository")
+ * @ORM\Table(name="produit")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProduitRepository")
  * @Gedmo\Loggable
  */
-class Categorie
+class Produit
 {
     /**
      * @var int
@@ -26,7 +26,14 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=3, unique=true)
+     * @ORM\Column(name="nom", type="string", length=75, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=7, nullable=true)
      */
     private $code;
 
@@ -34,9 +41,37 @@ class Categorie
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="nom", type="string", length=75, unique=true)
+     * @ORM\Column(name="model", type="string", length=25, nullable=true, unique=true)
      */
-    private $nom;
+    private $model;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="pa", type="integer", nullable=true)
+     */
+    private $pa;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="pv", type="integer", nullable=true)
+     */
+    private $pv;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="qte", type="integer", nullable=true)
+     */
+    private $qte;
 
     /**
      * @var bool
@@ -48,8 +83,8 @@ class Categorie
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"code","nom"})
-     * @ORM\Column(name="slug", type="string", length=75)
+     * @Gedmo\Slug(fields={"code","nom","model"})
+     * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
 
@@ -86,9 +121,10 @@ class Categorie
     private $modifieLe;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Produit", mappedBy="categorie")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categorie", inversedBy="produits")
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
      */
-     private $produits;
+    private $categorie;
 
 
     /**
@@ -106,11 +142,11 @@ class Categorie
      *
      * @param string $nom
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setNom($nom)
     {
-        $this->nom = strtoupper($nom);
+        $this->nom = $nom;
 
         return $this;
     }
@@ -126,11 +162,155 @@ class Categorie
     }
 
     /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Produit
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return Produit
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Produit
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set pa
+     *
+     * @param integer $pa
+     *
+     * @return Produit
+     */
+    public function setPa($pa)
+    {
+        $this->pa = $pa;
+
+        return $this;
+    }
+
+    /**
+     * Get pa
+     *
+     * @return int
+     */
+    public function getPa()
+    {
+        return $this->pa;
+    }
+
+    /**
+     * Set pv
+     *
+     * @param integer $pv
+     *
+     * @return Produit
+     */
+    public function setPv($pv)
+    {
+        $this->pv = $pv;
+
+        return $this;
+    }
+
+    /**
+     * Get pv
+     *
+     * @return int
+     */
+    public function getPv()
+    {
+        return $this->pv;
+    }
+
+    /**
+     * Set qte
+     *
+     * @param integer $qte
+     *
+     * @return Produit
+     */
+    public function setQte($qte)
+    {
+        $this->qte = $qte;
+
+        return $this;
+    }
+
+    /**
+     * Get qte
+     *
+     * @return int
+     */
+    public function getQte()
+    {
+        return $this->qte;
+    }
+
+    /**
      * Set statut
      *
      * @param boolean $statut
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setStatut($statut)
     {
@@ -142,7 +322,7 @@ class Categorie
     /**
      * Get statut
      *
-     * @return bool
+     * @return boolean
      */
     public function getStatut()
     {
@@ -154,7 +334,7 @@ class Categorie
      *
      * @param string $slug
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setSlug($slug)
     {
@@ -178,7 +358,7 @@ class Categorie
      *
      * @param string $publiePar
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setPubliePar($publiePar)
     {
@@ -202,7 +382,7 @@ class Categorie
      *
      * @param string $modifiePar
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setModifiePar($modifiePar)
     {
@@ -226,7 +406,7 @@ class Categorie
      *
      * @param \DateTime $publieLe
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setPublieLe($publieLe)
     {
@@ -250,7 +430,7 @@ class Categorie
      *
      * @param \DateTime $modifieLe
      *
-     * @return Categorie
+     * @return Produit
      */
     public function setModifieLe($modifieLe)
     {
@@ -269,70 +449,27 @@ class Categorie
         return $this->modifieLe;
     }
 
-
-
     /**
-     * Set code
+     * Set categorie
      *
-     * @param string $code
+     * @param \AppBundle\Entity\Categorie $categorie
      *
-     * @return Categorie
+     * @return Produit
      */
-    public function setCode($code)
+    public function setCategorie(\AppBundle\Entity\Categorie $categorie = null)
     {
-        $this->code = $code;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
     /**
-     * Get code
+     * Get categorie
      *
-     * @return string
+     * @return \AppBundle\Entity\Categorie
      */
-    public function getCode()
+    public function getCategorie()
     {
-        return $this->code;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->produits = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add produit
-     *
-     * @param \AppBundle\Entity\Produit $produit
-     *
-     * @return Categorie
-     */
-    public function addProduit(\AppBundle\Entity\Produit $produit)
-    {
-        $this->produits[] = $produit;
-
-        return $this;
-    }
-
-    /**
-     * Remove produit
-     *
-     * @param \AppBundle\Entity\Produit $produit
-     */
-    public function removeProduit(\AppBundle\Entity\Produit $produit)
-    {
-        $this->produits->removeElement($produit);
-    }
-
-    /**
-     * Get produits
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProduits()
-    {
-        return $this->produits;
+        return $this->categorie;
     }
 }
