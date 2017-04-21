@@ -98,7 +98,7 @@ class Categorie
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+        $this->nom = strtoupper($nom);
 
         return $this;
     }
@@ -256,4 +256,6 @@ class Categorie
     {
         return $this->modifieLe;
     }
+
+
 }

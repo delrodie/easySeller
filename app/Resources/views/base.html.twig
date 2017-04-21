@@ -129,7 +129,7 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="#" class="waves-effect"><i class="ion-ios7-analytics"></i><span> Tableau de bord </span></a>
+                                <a href="{{ path('homepage') }}" class="waves-effect"><i class="ion-ios7-analytics"></i><span> Tableau de bord </span></a>
                             </li>
 
                             <li class="menu-title">CAISSE</li>
@@ -172,7 +172,7 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="ion-cube"></i><span> Produits </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Categorie</a></li>
+                                    <li><a href="{{ path('categorie_index') }}">Categorie</a></li>
                                     <li><a href="#">Article</a></li>
                                     <li><a href="#">Approvisionnement</a></li>
                                     <li><a href="#">Inventaire</a></li>
@@ -185,7 +185,7 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-cogs"></i><span> Paramètre </span><span class="pull-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="#"> Personnel</a></li>
-                                    <li><a href="#"> Utilisateur</a></li>
+                                    <li><a href="{{ path('admin_user_index') }}"> Utilisateur</a></li>
                                 </ul>
                             </li>
 
@@ -220,7 +220,6 @@
         <script src="{{ asset("ressources/vendor/js/wow.min.js")}}"></script>
         <script src="{{ asset("ressources/vendor/js/jquery.nicescroll.js")}}"></script>
         <script src="{{ asset("ressources/vendor/js/jquery.scrollTo.min.js")}}"></script>
-        <script src="{{ asset("ressources/vendor/js/app.js")}}"></script>
         {% endblock %}
     </body>
 </html>
