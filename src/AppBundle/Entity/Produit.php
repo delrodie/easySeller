@@ -146,7 +146,7 @@ class Produit
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+        $this->nom = strtoupper($nom);
 
         return $this;
     }
@@ -194,7 +194,7 @@ class Produit
      */
     public function setModel($model)
     {
-        $this->model = $model;
+        $this->model = strtoupper($model);
 
         return $this;
     }

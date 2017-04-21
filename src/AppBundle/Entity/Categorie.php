@@ -335,4 +335,8 @@ class Categorie
     {
         return $this->produits;
     }
+
+    public function __toString() {
+        return $this->getNom();
+    }
 }

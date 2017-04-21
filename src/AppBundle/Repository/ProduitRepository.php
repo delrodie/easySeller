@@ -10,4 +10,40 @@ namespace AppBundle\Repository;
  */
 class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+    * Fonction de recherche du ID du produit
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 21/04/2017
+    * Since: v1.0
+    */
+    public function getProduitID()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('p')
+           ->select('count(p.id)')
+       ;
+        ;
+        try {
+
+            $id = $qb->getQuery()->getSingleScalarResult();
+
+            $id = $id + 1;
+
+            if ($id < 10) {
+               $num = '000'.$id;
+            } elseif ($id < 100) {
+               $num = '00'.$id;
+            } elseif ($id < 1000) {
+               $num = '0'.$id;
+            } else{
+               $num = $id;
+            }
+
+            return $num;
+
+        } catch (NoResultException $e) {
+            return $e;
+        }
+    }
 }

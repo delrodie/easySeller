@@ -42,4 +42,33 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
             return $e;
         }
     }
+
+    /**
+     * recherche du code de la categorie
+     *
+     * Author: Delrodie AMOIKON
+     * Date: 21/04/2017
+     * Since: v1.0
+     */
+     public function getCategorieCodeByID($categorie)
+     {
+         $em = $this->getEntityManager();
+         $qb = $em->createQuery('
+             SELECT c.code as code
+             FROM AppBundle:Categorie c
+             WHERE c.id = :id
+         ')
+           ->setParameter('id', $categorie)
+         ;
+         try {
+             $result = $qb->getSingleResult();
+
+             foreach ($result as $key => $value) {
+               return $value;
+             }             
+
+         } catch (NoResultException $e) {
+             return $e;
+         }
+     }
 }
