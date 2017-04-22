@@ -10,4 +10,36 @@ namespace AppBundle\Repository;
  */
 class FournisseurRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+    * Fonction de recherche du ID du fournisseur
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 22/04/2017
+    * Since: v1.0
+    */
+    public function getFseurID()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('f')
+           ->select('count(f.id)')
+       ;
+        ;
+        try {
+
+            $id = $qb->getQuery()->getSingleScalarResult();
+
+            $id = $id + 1;
+
+            if ($id < 10) {
+               $num = '0'.$id;
+            } else{
+               $num = $id;
+            }
+
+            return $num;
+
+        } catch (NoResultException $e) {
+            return $e;
+        }
+    }
 }
