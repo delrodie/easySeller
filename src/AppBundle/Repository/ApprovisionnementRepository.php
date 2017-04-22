@@ -10,4 +10,38 @@ namespace AppBundle\Repository;
  */
 class ApprovisionnementRepository extends \Doctrine\ORM\EntityRepository
 {
+  /**
+    * Fonction de recherche de l'ID de l'approvisionnement
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 22/04/2017
+    * Since: v1.0
+    */
+    public function getApprovisionnementID()
+    {
+        $em = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('a')
+           ->select('count(a.id)')
+       ;
+        ;
+        try {
+
+            $id = $qb->getQuery()->getSingleScalarResult();
+
+            $id = $id + 1;
+
+            if ($id < 10) {
+               $num = '00'.$id;
+            } elseif ($id < 100) {
+               $num = '0'.$id;
+            } else{
+               $num = $id;
+            }
+
+            return $num;
+
+        } catch (NoResultException $e) {
+            return $e;
+        }
+    }
 }

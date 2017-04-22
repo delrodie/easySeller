@@ -395,4 +395,8 @@ class Fournisseur
     {
         return $this->approvisionnements;
     }
+
+    public function __toString() {
+        return $this->getCode().'-'.$this->getNom();
+    }
 }

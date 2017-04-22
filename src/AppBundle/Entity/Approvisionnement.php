@@ -26,6 +26,13 @@ class Approvisionnement
     /**
      * @var string
      *
+     * @ORM\Column(name="numero", type="string", length=15, nullable=true)
+     */
+    private $numero;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="facture", type="string", length=15, nullable=true)
      */
@@ -118,7 +125,7 @@ class Approvisionnement
      */
     public function setFacture($facture)
     {
-        $this->facture = $facture;
+        $this->facture = strtoupper($facture);
 
         return $this;
     }
@@ -347,5 +354,29 @@ class Approvisionnement
     public function getFournisseur()
     {
         return $this->fournisseur;
+    }
+
+    /**
+     * Set numero
+     *
+     * @param string $numero
+     *
+     * @return Approvisionnement
+     */
+    public function setNumero($numero)
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    /**
+     * Get numero
+     *
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
     }
 }
