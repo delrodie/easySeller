@@ -109,7 +109,7 @@
                     {% for fournisseur in fournisseurs %}
                         {% set i = i + 1 %}
                         <tr>
-                          <td>{{ i }}</td>
+                          <td class="text-right">{{ loop.index }}</td>
                           <td class="text-center">
                             <a href="{{ path('fournisseur_edit', {'slug': fournisseur.slug} )}}">{{ fournisseur.code }}</a>
                           </td>
