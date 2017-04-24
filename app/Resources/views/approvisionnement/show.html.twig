@@ -80,7 +80,7 @@
                       <label class="control-label">
                         Montant<span class="required">  </span>
                       </label>
-                      <input type="text" class="form-control" value="{{ approvisionnement.montant }}" readonly="readonly"/>
+                      <input type="text" class="form-control" value="{{ approvisionnement.montant|monnaie }}" readonly="readonly"/>
                     </div>
                   </div>
                   <div class="col-sm-3 col-sm-offset-1">
@@ -88,7 +88,7 @@
                       <label class="control-label">
                         Fret<span class="required">  </span>
                       </label>
-                      <input type="text" class="form-control" value="{{ approvisionnement.fret }}" readonly="readonly"/>
+                      <input type="text" class="form-control" value="{{ approvisionnement.fret|monnaie }}" readonly="readonly"/>
                     </div>
                   </div>
                   <div class="col-sm-3 col-sm-offset-1">
