@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Approvisionnement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Approvisionnement controller.
@@ -95,8 +96,9 @@ class ApprovisionnementController extends Controller
      * @Route("/{slug}", name="approvisionnement_show")
      * @Method("GET")
      */
-    public function showAction(Approvisionnement $approvisionnement)
+    public function showAction(Approvisionnement $approvisionnement, Request $request)
     {
+
         $deleteForm = $this->createDeleteForm($approvisionnement);
         $em = $this->getDoctrine()->getManager();
         $approvisionnements = $em->getRepository('AppBundle:Approvisionnement')->findAll();

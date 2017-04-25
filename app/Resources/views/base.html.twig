@@ -41,13 +41,13 @@
                            <ul class="nav navbar-nav navbar-right pull-right">
                              <li class="dropdown hidden-xs">
                                  <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
-                                     <i class="fa fa-truck"></i> <span class="badge badge-xs badge-success">3</span>
+                                     <i class="fa fa-truck"></i> <span class="badge badge-xs badge-success">{{ render(url('nombre_produit_bon_approvisonnement'))}}</span>
                                  </a>
                                  <ul class="dropdown-menu dropdown-menu-lg">
-                                     <li class="text-center notifi-title">Approvisionnement <span class="badge badge-xs badge-success">AP170328-001</span></li>
+                                     {{ render(url('fseur_bon_approvisonnement'))}}
                                      <li class="list-group">
                                         <!-- last list item -->
-                                         <a href="javascript:void(0);" class="list-group-item">
+                                         <a href="{{ path('stockage_produit') }}" class="list-group-item">
                                            <small class="text-primary">Valider</small>
                                          </a>
                                      </li>

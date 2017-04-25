@@ -46,4 +46,20 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
             return $e;
         }
     }
+
+    /**
+     * Recherche du produit dans le tableau
+     *
+     * Author: Delrodie AMOIKON
+     * Date: 24/04/2017
+     * Since: v1.0
+     */
+     public function findArray($array)
+     {
+       $qb = $this->createQueryBuilder('p')
+                ->Select('p')
+                ->Where('p.id IN (:array)')
+                ->setParameter('array', $array);
+        return $qb->getQuery()->getResult();
+     }
 }

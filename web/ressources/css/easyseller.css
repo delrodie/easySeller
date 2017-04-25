@@ -18,3 +18,6 @@
 .required{color: red; }
 
 .monnaie{ padding-right: 10px; }
+
+.input-seller{ width: 50px; text-align: center }
+.input-seller-monnaie{ width: 75px; text-align: center }

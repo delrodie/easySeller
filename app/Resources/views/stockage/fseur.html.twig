@@ -1,0 +1,5 @@
+{% if (fournisseur.numero|length > 0) %}
+    <li class="text-center notifi-title">{{ fournisseur.fournisseur }} <span class="badge badge-xs badge-success">{{ fournisseur.numero }}</span></li>
+{% else %}
+    <li class="text-center notifi-title">Aucun approvisionnement</li>
+{% endif %}
