@@ -41,16 +41,20 @@ class StockageController extends Controller
     {
         $session = $request->getSession();
         if (!$session->has('fseur')) {
-          $fournisseur = "";
+          $nom = "Aucun approvisionnement";
+          $numero = "";
         } else {
 
           $em = $this->getDoctrine()->getManager();
 
           $fournisseur = $em->getRepository('AppBundle:Approvisionnement')->findOneById($session->get('fseur'));
+          $nom = $fournisseur->getFournisseur();
+          $numero = $fournisseur->getNumero();
         }
 
         return $this->render('stockage/fseur.html.twig', array(
-            'fournisseur'  => $fournisseur,
+            'nom'  => $nom,
+            'numero'  => $numero,
         ));
 
     }
@@ -90,8 +94,9 @@ class StockageController extends Controller
      */
      public function approvisionnerproduitAction(Request $request, $id)
      {
-       $session = $request->getSession();
+
        $em = $this->getDoctrine()->getManager();
+       $session = $request->getSession();
 
        // Mise en session de la quantité
        if (!$session->has('stockQte')) $session->set('stockQte',array());

@@ -1,5 +1,26 @@
-{% if (fournisseur.numero|length > 0) %}
-    <li class="text-center notifi-title">{{ fournisseur.fournisseur }} <span class="badge badge-xs badge-success">{{ fournisseur.numero }}</span></li>
+{% if (numero|length > 0) %}
+
+    <li class="dropdown hidden-xs">
+        <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
+            <i class="fa fa-truck"></i> <span class="badge badge-xs badge-success">{{ render(url('nombre_produit_bon_approvisonnement'))}}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-lg">
+            <li class="text-center notifi-title">{{ nom }} <span class="badge badge-xs badge-success">{{ numero }}</span></li>
+            <li class="list-group">
+               <!-- last list item -->
+                <a href="{{ path('stockage_produit') }}" class="list-group-item">
+                  <small class="text-primary">Valider</small>
+                </a>
+            </li>
+        </ul>
+    </li>
+
 {% else %}
-    <li class="text-center notifi-title">Aucun approvisionnement</li>
+
+<li class="dropdown hidden-xs">
+    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
+        <i class="fa fa-truck"></i> <span class="badge badge-xs badge-success">{{ render(url('nombre_produit_bon_approvisonnement'))}}</span>
+    </a>
+</li>
+
 {% endif %}

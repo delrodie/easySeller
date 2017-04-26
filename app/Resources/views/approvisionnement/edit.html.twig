@@ -145,8 +145,8 @@
                           <td>{{ approvisionnement.fournisseur }}</td>
                           <td class="text-center">{{ approvisionnement.facture }}</td>
                           <td class="text-center">{{ approvisionnement.datefac }}</td>
-                          <td class="text-center">{{ approvisionnement.montant }}</td>
-                          <td class="text-center">{{ approvisionnement.fret }}</td>
+                          <td class="text-right monnaie">{{ approvisionnement.montant|monnaie }}</td>
+                          <td class="text-right monnaie">{{ approvisionnement.fret|monnaie }}</td>
                           <td class="text-center">
                               <a href="{{ path('approvisionnement_show', {'slug': approvisionnement.slug} )}}" title="Voir"><i class="glyphicon glyphicon-search"></i></a> |
                               <a href="{{ path('approvisionnement_edit', {'slug': approvisionnement.slug} )}}" title="Modifier l'approvisionnement"><i class="fa fa-pencil"></i></a> |

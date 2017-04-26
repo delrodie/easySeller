@@ -60,6 +60,13 @@ class Approvisionnement
     private $fret;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="tva", type="integer", nullable=true)
+     */
+    private $tva;
+
+    /**
      * @var string
      *
      * @Gedmo\Slug(fields={"facture","montant","fret"})
@@ -378,5 +385,29 @@ class Approvisionnement
     public function getNumero()
     {
         return $this->numero;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param integer $tva
+     *
+     * @return Approvisionnement
+     */
+    public function setTva($tva)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return integer
+     */
+    public function getTva()
+    {
+        return $this->tva;
     }
 }

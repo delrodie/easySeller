@@ -30,6 +30,13 @@ class Approvisionner
     private $reference;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="approvisionnement", type="integer", nullable=true)
+     */
+     private $approvisionnement;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="stock", type="array", nullable=true)
@@ -67,11 +74,6 @@ class Approvisionner
      * @ORM\Column(name="modifie_le", type="datetimetz", nullable=true)
      */
     private $modifieLe;
-
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Approvisionnement")
-     */
-     private $approvisionnement;
 
 
 
@@ -229,14 +231,16 @@ class Approvisionner
         return $this->modifieLe;
     }
 
+
+
     /**
      * Set approvisionnement
      *
-     * @param \AppBundle\Entity\Approvisionnement $approvisionnement
+     * @param integer $approvisionnement
      *
      * @return Approvisionner
      */
-    public function setApprovisionnement(\AppBundle\Entity\Approvisionnement $approvisionnement = null)
+    public function setApprovisionnement($approvisionnement)
     {
         $this->approvisionnement = $approvisionnement;
 
@@ -246,7 +250,7 @@ class Approvisionner
     /**
      * Get approvisionnement
      *
-     * @return \AppBundle\Entity\Approvisionnement
+     * @return integer
      */
     public function getApprovisionnement()
     {
