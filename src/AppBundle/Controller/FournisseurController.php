@@ -51,6 +51,11 @@ class FournisseurController extends Controller
             return $this->redirectToRoute('fournisseur_index');
         }
 
+        // Sauvegarde du log de consultation
+        $user = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' consulte la liste des fournisseurs');
+
         $fournisseurs = $em->getRepository('AppBundle:Fournisseur')->findAll();
 
         return $this->render('fournisseur/index.html.twig', array(
