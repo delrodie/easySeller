@@ -81,6 +81,7 @@
                             {% set paArticle = 0 %}
                             {% set fret = 0 %}
                             {% set prixRevient = 0 %}
+                            {% set prixVente = 0 %}
                             {% set benefice = 0 %}
                             {% set prixRevientTotaux = 0 %}
                             {% set beneficeTotaux = 0 %}
@@ -91,6 +92,7 @@
                                 {% set fret = approvisionnement.fret %}
                                 {% set prixRevient = approvisionnement.montant|prixrevient(paArticle,fret) %}
                                 {% set benefice = prixRevient|benefice(produit.pv,stockQte[produit.id]) %}
+                                {% set prixVente = produit.pv * stockQte[produit.id] %}
                                 <tr>
                                   <form class="form-horizontal" action="{{ path('supprimer_stock_produit', {'id': produit.id} )}}" method="post">
                                   <td class="text-right">{{ loop.index }}</td>
@@ -98,7 +100,7 @@
                                   <td class="text-center">{{ stockQte[produit.id] }}</td>
                                   <td class="text-right monnaie">{{ stockPA[produit.id]|monnaie }}</td>
                                   <td class="text-right monnaie">{{ prixRevient|monnaie }}</td>
-                                  <td class="text-right monnaie">{{ produit.pv|monnaie }}</td>
+                                  <td class="text-right monnaie">{{ prixVente|monnaie }}</td>
                                   <td class="text-right monnaie">{{ benefice|monnaie }}</td>
                                   <td>
                                     <button type="submit" class="btn btn-default" ><span style="color: red;"><i class="fa fa-trash fa-lg"></i></span></button>

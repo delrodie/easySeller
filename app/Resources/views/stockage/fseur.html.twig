@@ -7,7 +7,22 @@
         <ul class="dropdown-menu dropdown-menu-lg">
             <li class="text-center notifi-title">{{ nom }} <span class="badge badge-xs badge-success">{{ numero }}</span></li>
             <li class="list-group">
-               <!-- last list item -->
+              {% for produit in produits|reverse|slice(0,2) %}
+              <!-- list item-->
+              <a href="javascript:void(0);" class="list-group-item">
+                 <div class="media">
+                     <!--<i class="fa fa-diamond text-danger noti-sm-icon"></i>-->
+                     <span class="text-primary noti-sm-icon">{{ stockQte[produit.id]}}</span>
+                     <div class="noti-content">
+                         <div class="media-heading">{{ produit.categorie }} {{ produit.nom }}</div>
+                         <p class="m-0">
+                             <small>{{ produit.model }}</small>
+                         </p>
+                     </div>
+                 </div>
+              </a>
+              <!-- list item-->
+              {% endfor %}
                 <a href="{{ path('stockage_produit') }}" class="list-group-item">
                   <small class="text-primary">Valider</small>
                 </a>

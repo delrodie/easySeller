@@ -67,6 +67,14 @@ class Approvisionnement
     private $tva;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="valider", type="boolean", nullable=true)
+     */
+    private $valider;
+
+
+    /**
      * @var string
      *
      * @Gedmo\Slug(fields={"facture","montant","fret"})
@@ -409,5 +417,29 @@ class Approvisionnement
     public function getTva()
     {
         return $this->tva;
+    }
+
+    /**
+     * Set valider
+     *
+     * @param boolean $valider
+     *
+     * @return Approvisionnement
+     */
+    public function setValider($valider)
+    {
+        $this->valider = $valider;
+
+        return $this;
+    }
+
+    /**
+     * Get valider
+     *
+     * @return boolean
+     */
+    public function getValider()
+    {
+        return $this->valider;
     }
 }

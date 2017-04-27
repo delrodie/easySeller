@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class StockageController extends Controller
 {
+  
   /**
    * Le nombre de produits sur le bon d'approvisionnement
    *
-   * @Route("/nombre-produits-bon-d'approvisionnement", name="nombre_produit_bon_approvisonnement")
+   * @Route("/nombre-produits-bon-d_approvisionnement", name="nombre_produit_bon_approvisonnement")
    */
    public function nombreproduitstockageAction(Request $request)
    {
@@ -35,26 +36,35 @@ class StockageController extends Controller
    /**
     * Les informations relatives a l'approvisonnement en cours
     *
-    * @Route("/fseur-bon-d'approvisionnement", name="fseur_bon_approvisonnement")
+    * @Route("/fseur-bon-d_approvisionnement", name="fseur_bon_approvisonnement")
     */
     public function fseurstockageAction(Request $request)
     {
         $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+
         if (!$session->has('fseur')) {
           $nom = "Aucun approvisionnement";
           $numero = "";
         } else {
-
-          $em = $this->getDoctrine()->getManager();
-
           $fournisseur = $em->getRepository('AppBundle:Approvisionnement')->findOneById($session->get('fseur'));
           $nom = $fournisseur->getFournisseur();
           $numero = $fournisseur->getNumero();
         }
 
+        if ($session->has('stockQte')){
+            $produits = $em->getRepository('AppBundle:Produit')->findArray(array_keys($session->get('stockQte')));
+            //var_dump($produits); die();
+        } else {
+            $produits = $em->getRepository('AppBundle:Produit')->findAll();
+            //die('ici');
+        }
+
         return $this->render('stockage/fseur.html.twig', array(
             'nom'  => $nom,
             'numero'  => $numero,
+            'produits' => $produits,
+            'stockQte' => $session->get('stockQte'),
         ));
 
     }
@@ -75,13 +85,22 @@ class StockageController extends Controller
         $fseur = $session->get('fseur');
 
         $session->set('fseur',$fseur);
-        //var_dump($session->get('fseur')); die();
+
+        // Mise en session de la quantité
+        if (!$session->has('stockQte')) $session->set('stockQte',array());
+        $stockQte = $session->get('stockQte');
+
+        // Mise en session du prix d'achat
+        if (!$session->has('stockPA')) $session->set('stockPA',array());
+        $stockPA = $session->get('stockPA');
 
         $approvisionnement = $em->getRepository('AppBundle:Approvisionnement')->findOneById($id);
 
         $produits = $em->getRepository('AppBundle:Produit')->findAll();
 
         return $this->render('stockage/inventaire.html.twig', array(
+            'stockQte'  => $session->get('stockQte'),
+            'stockPA'  => $session->get('stockPA'),
             'approvisionnement' => $approvisionnement,
             'produits'  => $produits,
         ));
@@ -125,8 +144,19 @@ class StockageController extends Controller
 
        $session->set('stockQte',$stockQte);
        $session->set('stockPA',$stockPA);
+       //var_dump(); die();
 
-       return $this->redirect($this->generateUrl('stockage_produit'));
+       //return $this->redirect($this->generateUrl('stockage_produit'));
+       $approvisionnement = $em->getRepository('AppBundle:Approvisionnement')->findOneById($session->get('fseur'));
+
+       $produits = $em->getRepository('AppBundle:Produit')->findAll();
+
+       return $this->render('stockage/inventaire.html.twig', array(
+           'stockQte'  => $session->get('stockQte'),
+           'stockPA'  => $session->get('stockPA'),
+           'approvisionnement' => $approvisionnement,
+           'produits'  => $produits,
+       ));
 
      }
 
@@ -172,7 +202,7 @@ class StockageController extends Controller
 
         $produits = $em->getRepository('AppBundle:Produit')->findArray(array_keys($session->get('stockPA')));
         $approvisionnement = $em->getRepository('AppBundle:Approvisionnement')->findOneBy(array('id' => $session->get('fseur')));
-        //var_dump($session->get('stock'));die();
+        //var_dump($session->get('fseur'));die();
 
         return $this->render('stockage/stockage.html.twig', array(
             'stockQte'  => $session->get('stockQte'),

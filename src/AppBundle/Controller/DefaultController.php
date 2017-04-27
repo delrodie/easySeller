@@ -14,7 +14,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+      // Sauvegarde du log de consultation
+      $user = $this->getUser();
+      $notification = $this->get('monolog.logger.notification');
+      $notification->notice($user.' a consulté le tableau de bord .\n');
+
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);

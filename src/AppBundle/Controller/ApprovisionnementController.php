@@ -50,8 +50,18 @@ class ApprovisionnementController extends Controller
             $em->persist($approvisionnement);
             $em->flush();
 
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a enregistré l\'approvisionnement.');
+
             return $this->redirectToRoute('approvisionnement_show', array('slug' => $approvisionnement->getSlug()));
         }
+
+        // Sauvegarde du log de consultation
+        $user = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' a consulté la liste des approvisionnements .\n');
 
         $approvisionnements = $em->getRepository('AppBundle:Approvisionnement')->findAll();
 
@@ -103,6 +113,11 @@ class ApprovisionnementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $approvisionnements = $em->getRepository('AppBundle:Approvisionnement')->findAll();
 
+        // Sauvegarde du log de consultation
+        $user = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' a consulté l\'approvisionnements numéro '.$approvisionnement->getNumero().' du fournisseur '.$approvisionnement->getFournisseur());
+
         return $this->render('approvisionnement/show.html.twig', array(
             'approvisionnement' => $approvisionnement,
             'delete_form' => $deleteForm->createView(),
@@ -126,6 +141,12 @@ class ApprovisionnementController extends Controller
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('notice', "L'approvisionnement ".$approvisionnement->getNumero()." du fournisseur ".$approvisionnement->getFournisseur()." a été modifié avec succès.!");
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a modifié l\'approvisionnements numéro '.$approvisionnement->getNumero().' du fournisseur '.$approvisionnement->getFournisseur());
+
 
             return $this->redirectToRoute('approvisionnement_show', array('slug' => $approvisionnement->getSlug()));
         }
@@ -157,6 +178,12 @@ class ApprovisionnementController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($approvisionnement);
             $em->flush();
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a supprimé l\'approvisionnements numéro '.$approvisionnement->getNumero().' du fournisseur '.$approvisionnement->getFournisseur());
+
         }
 
         return $this->redirectToRoute('approvisionnement_index');

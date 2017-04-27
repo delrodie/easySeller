@@ -6,6 +6,7 @@ use AppBundle\Entity\Approvisionner;
 use AppBundle\Entity\Produit;
 use AppBundle\Entity\Approvisionnement;
 use AppBundle\Entity\Fournisseur;
+use AppBundle\Controller\ApprovisionnementController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,12 +47,14 @@ class ApprovisionnerController extends Controller
       foreach ($produits as $produit) {
 
         // Calcul du prix de revient et du benefice par article
-        $prixRevient = $em->getRepository('AppBundle:Approvisionner')->calculPrixRevient($montantFac,$fret,$produit->getPa());
+        $prixRevient = $em->getRepository('AppBundle:Approvisionner')->calculPrixRevient($montantFac,$fret,$stockPA[$produit->getId()]);
+        //var_dump($prixRevient);
         $benefice = (($produit->getPv() * $stockQte[$produit->getId()]) - $prixRevient);
         $prixRevientUnitaire = round(($prixRevient / $stockQte[$produit->getId()]),0);
         $beneficeUnitaire = round(($benefice / $stockQte[$produit->getId()]),0);
         $totalPrixRevient += $prixRevient;
         $totalBenefice += $benefice;
+        //die($prixRevientUnitaire);
 
         $stockage['produit'][$produit->getId()] = array(
                                                           'code'  => $produit->getCode(),
@@ -66,6 +69,16 @@ class ApprovisionnerController extends Controller
                                                           'prtot' => $prixRevient,
                                                           'betot' => $benefice,
                                                         );
+
+        // Mise a jour de la quantité et du prix achat
+        $produitStock = $em->getRepository('AppBundle:Produit')->findOneBy(array('id' => $produit->getId()));
+
+        // Nouvelle quantité de ce produit
+        $nouvelleQte = $stockQte[$produit->getId()] + $produitStock->getQte(); 
+        $produitStock->setQte($nouvelleQte);
+        $produitStock->setPa($prixRevientUnitaire);
+        $em->persist($produitStock);
+        $em->flush();
       }
 
       $tockage['approvisionnement'] = array(
@@ -112,6 +125,11 @@ class ApprovisionnerController extends Controller
           $em->persist($stockage);
       }
 
+      $em->flush();
+
+      // Modifier l'attribut valider de approvisionnement
+      $approvisionnement->setValider(1);
+      $em->persist($approvisionnement);
       $em->flush();
 
       // Destruction des sessions
