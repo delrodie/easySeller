@@ -149,10 +149,10 @@
                           <td class="text-right monnaie">{{ approvisionnement.fret|monnaie }}</td>
                           <td class="text-center">
                               <a href="{{ path('approvisionnement_show', {'slug': approvisionnement.slug} )}}" title="Voir"><i class="glyphicon glyphicon-search"></i></a> |
-                              {% if approvisionnement.valider|length == 0 %}                              
+                              {% if approvisionnement.valider|length == 0 %}
                               <a href="{{ path('approvisionnement_edit', {'slug': approvisionnement.slug} )}}" title="Modifier l'approvisionnement"><i class="fa fa-pencil"></i></a> |
                               {% endif %}
-                              <a href="#" title="Liste des produits concernés"><i class="fa fa-file-text-o"></i></a>
+                              <a href="{{ path('stockage_produit_valider', {'id': approvisionnement.id} )}}" title="Liste des produits concernés"><i class="fa fa-file-text-o"></i></a>
                           </td>
                         </tr>
                     {% endfor %}

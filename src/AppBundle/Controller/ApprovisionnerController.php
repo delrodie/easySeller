@@ -58,7 +58,7 @@ class ApprovisionnerController extends Controller
 
         $stockage['produit'][$produit->getId()] = array(
                                                           'code'  => $produit->getCode(),
-                                                          'categorie' => $produit->getCategorie(),
+                                                          //'categorie' => $produit->getCategorie(),
                                                           'nom' => $produit->getNom(),
                                                           'model' => $produit->getModel(),
                                                           'pv'  => $produit->getPv(),
@@ -74,14 +74,14 @@ class ApprovisionnerController extends Controller
         $produitStock = $em->getRepository('AppBundle:Produit')->findOneBy(array('id' => $produit->getId()));
 
         // Nouvelle quantité de ce produit
-        $nouvelleQte = $stockQte[$produit->getId()] + $produitStock->getQte(); 
+        $nouvelleQte = $stockQte[$produit->getId()] + $produitStock->getQte();
         $produitStock->setQte($nouvelleQte);
         $produitStock->setPa($prixRevientUnitaire);
         $em->persist($produitStock);
         $em->flush();
       }
 
-      $tockage['approvisionnement'] = array(
+      $stockage['approvisionnement'] = array(
                                               'fseurNom' => $fournisseur->getNom(),
                                               'fseurAdresse'  => $fournisseur->getAdresse(),
                                               'fseurContact'  => $fournisseur->getContact(),
@@ -91,7 +91,7 @@ class ApprovisionnerController extends Controller
                                               'datefac' => $approvisionnement->getDatefac(),
                                             );
 
-      $tockage['totalPrixRevient'] = $totalPrixRevient;
+      $stockage['totalPrixRevient'] = $totalPrixRevient;
       $stockage['totalBenefice']  = $totalBenefice;
       //$stockage['token'] = bin2hex($generator->nextBytes(20));
 

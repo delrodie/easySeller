@@ -44,6 +44,11 @@ class CategorieController extends Controller
             $em->persist($categorie);
             $em->flush();
 
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a enregistré la catégorie '.$code.'-'.$nom.' .\n');
+
             $this->addFlash('notice', "La catégorie ".$categorie->getNom()." a été créée avec succès.!");
 
             return $this->redirectToRoute('categorie_index');
@@ -52,6 +57,11 @@ class CategorieController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('AppBundle:Categorie')->findAll();
+
+        // Sauvegarde du log de consultation
+        $user = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' a consulté la liste des categories .\n');
 
         return $this->render('categorie/index.html.twig', array(
             'categories' => $categories,
@@ -128,6 +138,11 @@ class CategorieController extends Controller
             $categorie->setCode($code);
 
             $this->getDoctrine()->getManager()->flush();
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a modifié la categorie '.$code.'-'.$nom.' .\n');
 
             $this->addFlash('notice', "La catégorie ".$categorie->getNom()." a été modifiée avec succès.!");
 

@@ -1139,7 +1139,7 @@ b {
     padding: 0;
   }
   .left {
-    display: none;
+    display: block;
   }
   .content {
     margin-top: 0;

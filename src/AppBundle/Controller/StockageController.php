@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class StockageController extends Controller
 {
-  
+
   /**
    * Le nombre de produits sur le bon d'approvisionnement
    *
@@ -212,5 +212,42 @@ class StockageController extends Controller
         ));
 
       }
+
+    /**
+     * Stockage des produits
+     *
+     * @Route("/{id}-stockage-valider", name="stockage_produit_valider")
+     */
+      public function stockagevaliderAction(Request $request, $id)
+      {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $approvisionner = $em->getRepository('AppBundle:Approvisionner')->findOneBy(array('approvisionnement' => $id ));
+        $approvisionnement = $em->getRepository('AppBundle:Approvisionnement')->findOneById($id);
+        //var_dump($stock);die();
+
+        return $this->render('stockage/stockage_valider.html.twig', array(
+            'approvisionner'  => $approvisionner,
+            'approvisionnement'  => $approvisionnement,
+        ));
+      }
+
+    /**
+     * La categorie du produit
+     *
+     * @Route("/{code}/stockage-categorie", name="stockage_categorie")
+     */
+     public function categoriestockageAction(Request $request, $code)
+     {
+       $em = $this->getDoctrine()->getManager();
+
+       $produit = $em->getRepository('AppBundle:Produit')->findOneBy(array('code' => $code ));
+       //var_dump($code);die();
+
+       return $this->render('stockage/stockage_categorie.html.twig', array(
+           'produit'  => $produit,
+       ));
+     }
 
 }

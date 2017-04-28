@@ -46,6 +46,11 @@ class FournisseurController extends Controller
             $em->persist($fournisseur);
             $em->flush();
 
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a enregistré le fournisseur '.$code.'-'.$nom.' .\n');
+
             $this->addFlash('notice', "Le fournisseur ".$fournisseur->getNom()." a été crée avec succès.!");
 
             return $this->redirectToRoute('fournisseur_index');
@@ -54,7 +59,7 @@ class FournisseurController extends Controller
         // Sauvegarde du log de consultation
         $user = $this->getUser();
         $notification = $this->get('monolog.logger.notification');
-        $notification->notice($user.' consulte la liste des fournisseurs');
+        $notification->notice($user.' a consulté la liste des fournisseurs .\n');
 
         $fournisseurs = $em->getRepository('AppBundle:Fournisseur')->findAll();
 
@@ -121,6 +126,11 @@ class FournisseurController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a modifié le fournisseur '.$fournisseur->getCode().'-'.$fournisseur->getNom().' .\n');
 
             $this->addFlash('notice', "Le fournisseur ".$fournisseur->getNom()." a été modifié avec succès.!");
 
