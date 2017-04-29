@@ -1,110 +1,105 @@
-{% extends 'base.html.twig' %}
-
-{% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset("ressources/vendor/plugins/chartist/css/chartist.min.css")}}">
-  {{ parent() }}
-{% endblock %}
-{% block body %}
+{% extends 'base.html.twig' %} {% block stylesheets %}
+<link rel="stylesheet" href="{{ asset("ressources/vendor/plugins/chartist/css/chartist.min.css")}}"> {{ parent() }} {% endblock %} {% block body %}
 <div class="">
-                    <div class="page-header-title">
-                        <h4 class="page-title">Tableau de bord Gerant</h4>
+    <div class="page-header-title">
+        <h4 class="page-title">Tableau de bord Gerant</h4>
+    </div>
+</div>
+
+<div class="page-content-wrapper ">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-lg-3">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-muted m-t-10 font-light">Total de ce mois</h4>
+                    </div>
+                    <div class="panel-body p-t-10">
+                        <h2 class="m-t-0 m-b-15 text-warning font-light"><i class="fa fa-money m-r-10"></i>325000</h2>
                     </div>
                 </div>
+            </div>
 
-                <div class="page-content-wrapper ">
+            <div class="col-xs-6 col-sm-6 col-lg-3">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-muted m-t-10 font-light">Total de cette journée</h4>
+                    </div>
+                    <div class="panel-body p-t-10">
+                        <h2 class="m-t-0 m-b-15 text-success font-light"><i class="fa fa-money m-r-10"></i>35000</h2>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="container">
+        </div>
 
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-lg-3">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title text-muted m-t-10 font-light">Total de ce mois</h4>
-                                    </div>
-                                    <div class="panel-body p-t-10">
-                                        <h2 class="m-t-0 m-b-15 text-warning font-light"><i class="fa fa-money m-r-10"></i>325000</h2>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="row">
 
-                            <div class="col-xs-6 col-sm-6 col-lg-3">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title text-muted m-t-10 font-light">Total de cette journée</h4>
-                                    </div>
-                                    <div class="panel-body p-t-10">
-                                        <h2 class="m-t-0 m-b-15 text-success font-light"><i class="fa fa-money m-r-10"></i>35000</h2>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-body">
+                        <h4 class="m-t-0 m-b-30">Courbes des recettes journalières</h4>
 
-                        </div>
+                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                            <li>
+                                <h4 class=""><b>257500</b></h4>
+                                <p class="text-muted">Ce mois</p>
+                            </li>
+                            <li>
+                                <h4 class=""><b>75000</b></h4>
+                                <p class="text-muted">Aujourd'hui</p>
+                            </li>
+                        </ul>
 
-                        <div class="row">
+                        <div id="chart-with-area" class="ct-chart ct-golden-section"></div>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="col-xs-12">
-                                <div class="panel panel-border panel-primary">
-                                    <div class="panel-body">
-                                        <h4 class="m-t-0 m-b-30">Courbes des recettes journalières</h4>
-
-                                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
-                                            <li>
-                                                <h4 class=""><b>257500</b></h4>
-                                                <p class="text-muted">Ce mois</p>
-                                            </li>
-                                            <li>
-                                                <h4 class=""><b>75000</b></h4>
-                                                <p class="text-muted">Aujourd'hui</p>
-                                            </li>
-                                        </ul>
-
-                                        <div id="chart-with-area" class="ct-chart ct-golden-section"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end row -->
+        </div>
+        <!-- end row -->
 
 
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="panel panel-border panel-primary">
-                                    <div class="panel-body">
-                                        <h4 class="m-t-0 m-b-30">Diagrammes mensuels</h4>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-body">
+                        <h4 class="m-t-0 m-b-30">Diagrammes mensuels</h4>
 
-                                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
-                                            <li>
-                                                <h4 class=""><b>2500000</b></h4>
-                                                <p class="text-muted">Cette année</p>
-                                            </li>
-                                            <li>
-                                                <h4 class=""><b>342500</b></h4>
-                                                <p class="text-muted">Ce mois</p>
-                                            </li>
-                                        </ul>
+                        <ul class="list-inline widget-chart m-t-20 m-b-15 text-center">
+                            <li>
+                                <h4 class=""><b>2500000</b></h4>
+                                <p class="text-muted">Cette année</p>
+                            </li>
+                            <li>
+                                <h4 class=""><b>342500</b></h4>
+                                <p class="text-muted">Ce mois</p>
+                            </li>
+                        </ul>
 
-                                        <div id="stacked-bar-chart" class="ct-chart ct-golden-section"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end row -->
-
-
-                    </div><!-- container -->
+                        <div id="stacked-bar-chart" class="ct-chart ct-golden-section"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
 
 
-                </div> <!-- Page content Wrapper -->
-{% endblock %}
+    </div>
+    <!-- container -->
 
-{% block javascripts %}
-  {{ parent() }}
-  <!--Chartist Chart-->
-        <script src="{{ asset("ressources/vendor/plugins/chartist/js/chartist.min.js")}}"></script>
-        <script src="{{ asset("ressources/vendor/plugins/chartist/js/chartist-plugin-tooltip.min.js")}}"></script>
-        <script src="{{ asset("ressources/vendor/pages/chartist.init.js")}}"></script>
 
-        <script src="{{ asset("ressources/vendor/pages/dashborad.js")}}"></script>
-        <script src="{{ asset("ressources/vendor/js/app.js")}}"></script>
+</div>
+<!-- Page content Wrapper -->
+{% endblock %} {% block javascripts %} {{ parent() }}
+<!--Chartist Chart-->
+<script src="{{ asset("ressources/vendor/plugins/chartist/js/chartist.min.js")}}"></script>
+<script src="{{ asset("ressources/vendor/plugins/chartist/js/chartist-plugin-tooltip.min.js")}}"></script>
+<script src="{{ asset("ressources/vendor/pages/chartist.init.js")}}"></script>
+
+<script src="{{ asset("ressources/vendor/pages/dashborad.js")}}"></script>
+<script src="{{ asset("ressources/vendor/js/app.js")}}"></script>
+
 {% endblock %}
