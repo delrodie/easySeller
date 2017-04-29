@@ -26,6 +26,11 @@ class ProduitController extends Controller
 
         $produits = $em->getRepository('AppBundle:Produit')->findAll();
 
+        // Sauvegarde du log de consultation
+        $user = $this->getUser();
+        $notification = $this->get('monolog.logger.notification');
+        $notification->notice($user.' a consulté la liste des produits .\n');
+
         return $this->render('produit/index.html.twig', array(
             'produits' => $produits,
         ));
@@ -63,6 +68,11 @@ class ProduitController extends Controller
 
             $em->persist($produit);
             $em->flush();
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a enregistré le produit '.$code.'-'.$produit->getModel().' .\n');
 
             return $this->redirectToRoute('produit_index');
         }
@@ -103,6 +113,11 @@ class ProduitController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            // Sauvegarde du log de consultation
+            $user = $this->getUser();
+            $notification = $this->get('monolog.logger.notification');
+            $notification->notice($user.' a modifié le produit '.$produit->getCode().'-'.$produit->getModel().' .\n');
 
             return $this->redirectToRoute('produit_index');
         }

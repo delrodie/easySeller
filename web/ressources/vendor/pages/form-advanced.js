@@ -11,7 +11,7 @@
                 e(".colorpicker-default").colorpicker({ format: "hex" }),
                 e(".colorpicker-rgba").colorpicker(),
                 jQuery("#datepicker").datepicker(),
-                jQuery("#appbundle_agent_datenaiss").datepicker({ autoclose: !0, todayHighlight: !0 }),
+                jQuery("#appbundle_approvisionnement_datefac").datepicker({ autoclose: !0, todayHighlight: !0 }),
                 jQuery("#appbundle_agent_datefonc").datepicker({ autoclose: !0, todayHighlight: !0 }),
                 jQuery("#datepicker-autoclose").datepicker({ autoclose: !0, todayHighlight: !0 }),
                 jQuery("#datepicker-inline").datepicker(),

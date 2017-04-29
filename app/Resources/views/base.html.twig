@@ -39,6 +39,9 @@
                            </div>
 
                            <ul class="nav navbar-nav navbar-right pull-right">
+
+                            {{ render(url('fseur_bon_approvisonnement'))}}
+
                                <li class="dropdown hidden-xs">
                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
                                        <i class="fa fa-shopping-cart"></i> <span class="badge badge-xs badge-danger">17</span>
@@ -155,6 +158,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="#">Arrêté de caisse</a></li>
                                     <li><a href="#">Encaisser recette </a></li>
+                                    <li><a href="{{ path('bon_reception_fournisseur')}}">Achats </a></li>
                                 </ul>
                             </li>
 
@@ -165,7 +169,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ path('fournisseur_index')}}">Fournisseur</a></li>
                                     <li><a href="#">Bon de commande</a></li>
-                                    <li><a href="#">Bon de reception</a></li>
+                                    <li><a href="{{ path('bon_reception_fournisseur')}}">Bon de reception</a></li>
                                 </ul>
                             </li>
 
@@ -174,7 +178,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="{{ path('categorie_index') }}">Categorie</a></li>
                                     <li><a href="{{ path('produit_index')}}">Article</a></li>
-                                    <li><a href="#">Approvisionnement</a></li>
+                                    <li><a href="{{ path('approvisionnement_index')}}">Approvisionnement</a></li>
                                     <li><a href="#">Inventaire</a></li>
                                 </ul>
                             </li>

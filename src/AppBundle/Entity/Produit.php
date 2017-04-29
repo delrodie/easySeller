@@ -53,23 +53,23 @@ class Produit
     private $description;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="pa", type="integer", nullable=true)
+     * @ORM\Column(name="pa", type="string", length=11, nullable=true)
      */
     private $pa;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="pv", type="integer", nullable=true)
+     * @ORM\Column(name="pv", type="string", length=11, nullable=true)
      */
     private $pv;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="qte", type="integer", nullable=true)
+     * @ORM\Column(name="qte", type="string", length=11, nullable=true)
      */
     private $qte;
 

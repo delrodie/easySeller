@@ -1,0 +1,4 @@
+{% for stat in stats %}
+<td class="text-right monnaie">{{ (stat.montant + stat.fret) |monnaie }}</td>
+<td class="text-center">{{ stat.valider }}</td>
+{% endfor %}

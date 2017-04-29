@@ -70,8 +70,8 @@
                           <td><a href="{{ path('produit_edit', { 'slug': produit.slug }) }}">{{ produit.code }}</a></td>
                           <td>{{ produit.categorie }} {{ produit.nom }}</td>
                           <td class="text-center">{{ produit.model }}</td>
-                          <td class="text-center">{{ produit.pa }}</td>
-                          <td class="text-center">{{ produit.pv }}</td>
+                          <td class="text-right monnaie">{{ produit.pa|monnaie }}</td>
+                          <td class="text-right monnaie">{{ produit.pv|monnaie }}</td>
                           <td class="text-center">{{ produit.qte }}</td>
                           <td class="text-center">
                             <a href="#">

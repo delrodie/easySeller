@@ -6,13 +6,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fournisseur
+ * Approvisionnement
  *
- * @ORM\Table(name="fournisseur")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FournisseurRepository")
+ * @ORM\Table(name="approvisionnement")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ApprovisionnementRepository")
  * @Gedmo\Loggable
  */
-class Fournisseur
+class Approvisionnement
 {
     /**
      * @var int
@@ -26,43 +26,58 @@ class Fournisseur
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=4, nullable=true, unique=true)
+     * @ORM\Column(name="numero", type="string", length=15, nullable=true)
      */
-    private $code;
+    private $numero;
 
     /**
      * @var string
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="nom", type="string", length=25, unique=true)
+     * @ORM\Column(name="facture", type="string", length=15, nullable=true)
      */
-    private $nom;
+    private $facture;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=125, nullable=true)
+     * @ORM\Column(name="datefac", type="string", length=10, nullable=true)
      */
-    private $adresse;
+    private $datefac;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="contact", type="string", length=25, nullable=true)
+     * @ORM\Column(name="montant", type="integer", nullable=true)
      */
-    private $contact;
+    private $montant;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="fret", type="integer", nullable=true)
+     */
+    private $fret;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tva", type="integer", nullable=true)
+     */
+    private $tva;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="statut", type="boolean", nullable=true)
+     * @ORM\Column(name="valider", type="boolean", nullable=true)
      */
-    private $statut;
+    private $valider;
+
 
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"code","nom"})
+     * @Gedmo\Slug(fields={"facture","montant","fret"})
      * @ORM\Column(name="slug", type="string", length=75)
      */
     private $slug;
@@ -100,9 +115,10 @@ class Fournisseur
     private $modifieLe;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Approvisionnement", mappedBy="fournisseur")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Fournisseur", inversedBy="approvisionnements")
+     * @ORM\JoinColumn(name="fseur_id", referencedColumnName="id")
      */
-     private $approvisionnements;
+    private $fournisseur;
 
 
     /**
@@ -116,123 +132,99 @@ class Fournisseur
     }
 
     /**
-     * Set code
+     * Set facture
      *
-     * @param string $code
+     * @param string $facture
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
-    public function setCode($code)
+    public function setFacture($facture)
     {
-        $this->code = $code;
+        $this->facture = strtoupper($facture);
 
         return $this;
     }
 
     /**
-     * Get code
+     * Get facture
      *
      * @return string
      */
-    public function getCode()
+    public function getFacture()
     {
-        return $this->code;
+        return $this->facture;
     }
 
     /**
-     * Set nom
+     * Set datefac
      *
-     * @param string $nom
+     * @param string $datefac
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
-    public function setNom($nom)
+    public function setDatefac($datefac)
     {
-        $this->nom = strtoupper($nom);
+        $this->datefac = $datefac;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get datefac
      *
      * @return string
      */
-    public function getNom()
+    public function getDatefac()
     {
-        return $this->nom;
+        return $this->datefac;
     }
 
     /**
-     * Set adresse
+     * Set montant
      *
-     * @param string $adresse
+     * @param integer $montant
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
-    public function setAdresse($adresse)
+    public function setMontant($montant)
     {
-        $this->adresse = $adresse;
+        $this->montant = $montant;
 
         return $this;
     }
 
     /**
-     * Get adresse
+     * Get montant
      *
-     * @return string
+     * @return int
      */
-    public function getAdresse()
+    public function getMontant()
     {
-        return $this->adresse;
+        return $this->montant;
     }
 
     /**
-     * Set contact
+     * Set fret
      *
-     * @param string $contact
+     * @param integer $fret
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
-    public function setContact($contact)
+    public function setFret($fret)
     {
-        $this->contact = $contact;
+        $this->fret = $fret;
 
         return $this;
     }
 
     /**
-     * Get contact
+     * Get fret
      *
-     * @return string
+     * @return int
      */
-    public function getContact()
+    public function getFret()
     {
-        return $this->contact;
-    }
-
-    /**
-     * Set statut
-     *
-     * @param boolean $statut
-     *
-     * @return Fournisseur
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return boolean
-     */
-    public function getStatut()
-    {
-        return $this->statut;
+        return $this->fret;
     }
 
     /**
@@ -240,7 +232,7 @@ class Fournisseur
      *
      * @param string $slug
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
     public function setSlug($slug)
     {
@@ -264,7 +256,7 @@ class Fournisseur
      *
      * @param string $publiePar
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
     public function setPubliePar($publiePar)
     {
@@ -288,7 +280,7 @@ class Fournisseur
      *
      * @param string $modifiePar
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
     public function setModifiePar($modifiePar)
     {
@@ -312,7 +304,7 @@ class Fournisseur
      *
      * @param \DateTime $publieLe
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
     public function setPublieLe($publieLe)
     {
@@ -336,7 +328,7 @@ class Fournisseur
      *
      * @param \DateTime $modifieLe
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
     public function setModifieLe($modifieLe)
     {
@@ -354,49 +346,100 @@ class Fournisseur
     {
         return $this->modifieLe;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->approvisionnements = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add approvisionnement
+     * Set fournisseur
      *
-     * @param \AppBundle\Entity\Approvisionnement $approvisionnement
+     * @param \AppBundle\Entity\Fournisseur $fournisseur
      *
-     * @return Fournisseur
+     * @return Approvisionnement
      */
-    public function addApprovisionnement(\AppBundle\Entity\Approvisionnement $approvisionnement)
+    public function setFournisseur(\AppBundle\Entity\Fournisseur $fournisseur = null)
     {
-        $this->approvisionnements[] = $approvisionnement;
+        $this->fournisseur = $fournisseur;
 
         return $this;
     }
 
     /**
-     * Remove approvisionnement
+     * Get fournisseur
      *
-     * @param \AppBundle\Entity\Approvisionnement $approvisionnement
+     * @return \AppBundle\Entity\Fournisseur
      */
-    public function removeApprovisionnement(\AppBundle\Entity\Approvisionnement $approvisionnement)
+    public function getFournisseur()
     {
-        $this->approvisionnements->removeElement($approvisionnement);
+        return $this->fournisseur;
     }
 
     /**
-     * Get approvisionnements
+     * Set numero
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param string $numero
+     *
+     * @return Approvisionnement
      */
-    public function getApprovisionnements()
+    public function setNumero($numero)
     {
-        return $this->approvisionnements;
+        $this->numero = $numero;
+
+        return $this;
     }
 
-    public function __toString() {
-        return $this->getCode().'-'.$this->getNom();
+    /**
+     * Get numero
+     *
+     * @return string
+     */
+    public function getNumero()
+    {
+        return $this->numero;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param integer $tva
+     *
+     * @return Approvisionnement
+     */
+    public function setTva($tva)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return integer
+     */
+    public function getTva()
+    {
+        return $this->tva;
+    }
+
+    /**
+     * Set valider
+     *
+     * @param boolean $valider
+     *
+     * @return Approvisionnement
+     */
+    public function setValider($valider)
+    {
+        $this->valider = $valider;
+
+        return $this;
+    }
+
+    /**
+     * Get valider
+     *
+     * @return boolean
+     */
+    public function getValider()
+    {
+        return $this->valider;
     }
 }
