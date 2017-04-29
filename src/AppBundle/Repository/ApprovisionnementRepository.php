@@ -95,6 +95,6 @@ class ApprovisionnementRepository extends \Doctrine\ORM\EntityRepository
           return $e;
       }
 
-    }
+    } 
 
 }
