@@ -110,5 +110,5 @@ monolog:
             level: notice
             type:  stream
             path:  '%kernel.logs_dir%/notification.json'
-            formatter: json
+            #formatter: json
             channels: [notification]

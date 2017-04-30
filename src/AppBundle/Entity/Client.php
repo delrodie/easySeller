@@ -25,7 +25,7 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=5, nullable=true, unique=true)
+     * @ORM\Column(name="code", type="string", length=7, nullable=true, unique=true)
      */
     private $code;
 
@@ -139,7 +139,7 @@ class Client
      */
     public function setNom($nom)
     {
-        $this->nom = $nom;
+        $this->nom = strtoupper($nom);
 
         return $this;
     }
@@ -163,7 +163,7 @@ class Client
      */
     public function setRc($rc)
     {
-        $this->rc = $rc;
+        $this->rc = strtoupper($rc);
 
         return $this;
     }
@@ -211,7 +211,7 @@ class Client
      */
     public function setBp($bp)
     {
-        $this->bp = $bp;
+        $this->bp = strtoupper($bp);
 
         return $this;
     }
