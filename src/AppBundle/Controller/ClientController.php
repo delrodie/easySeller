@@ -39,7 +39,8 @@ class ClientController extends Controller
             $initial = substr($nom, 0, 1);
 
             // Position du fournisseur en cours
-            $num = $em->getRepository('AppBundle:Client')->getClientID();
+            //$num = $em->getRepository('AppBundle:Client')->getClientID();
+            $num = $em->getRepository('AppBundle:Client')->getNumeroOrdre();
 
             $code = 'C'.$initial.''.$num;
 
@@ -61,7 +62,7 @@ class ClientController extends Controller
         // Sauvegarde du log de consultation
         $user = $this->getUser();
         $notification = $this->get('monolog.logger.notification');
-        $notification->notice($user.' a consulté la liste des clients .\n');
+        $notification->notice($user.' a consulté la liste des clients par le module enregistrement. .\n');
 
         return $this->render('client/index.html.twig', array(
             'clients' => $clients,
@@ -144,7 +145,7 @@ class ClientController extends Controller
         // Sauvegarde du log de consultation
         $user = $this->getUser();
         $notification = $this->get('monolog.logger.notification');
-        $notification->notice($user.' a consulté la liste des clients .\n');
+        $notification->notice($user.' a consulté la liste des clients par le module modification .\n');
 
         return $this->render('client/edit.html.twig', array(
             'client' => $client,
