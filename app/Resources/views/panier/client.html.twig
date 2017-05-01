@@ -1,0 +1,29 @@
+<li class="dropdown hidden-xs">
+  <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
+    <i class="fa fa-shopping-cart"></i>
+    <span class="badge badge-xs badge-danger">{{ article }}</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-lg">
+    <li class="text-center notifi-title">{{ client.nom|title }}
+      <span class="badge badge-xs badge-success">{{ client.code }}</span>
+    </li>
+    <li class="list-group">
+       <!-- list item -->
+      <a href="javascript:void(0);" class="list-group-item">
+        <div class="media">
+          <i class="fa fa-reply-all text-danger noti-sm-icon"></i>
+          <div class="noti-content">
+            <div class="media-heading">Retour au panier</div>
+          </div>
+        </div>
+      </a>
+       <!-- last list item -->
+      <a href="javascript:void(0);" class="list-group-item">
+        <i class="fa fa-check text-primary noti-sm-icon"></i>
+        <div class="noti-content">
+          <div class="media-heading">Valider le panier</div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</li>
