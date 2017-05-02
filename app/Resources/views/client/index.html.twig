@@ -164,7 +164,7 @@
                         <td class="text-center">
                           <a href="{{ path('panier_sans_produit', {'client': client.id}) }}" title="">
                             <i class="fa fa-calculator"></i>
-                            {{ client.id }}
+                            {{ render(url('nombre_facture', {'clientID': client.id }))}}
                           </a>
                         </td>
                       </tr>

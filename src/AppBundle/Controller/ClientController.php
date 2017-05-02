@@ -22,6 +22,7 @@ class ClientController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
         $clients = $em->getRepository('AppBundle:Client')->findAll();
@@ -52,17 +53,22 @@ class ClientController extends Controller
             // Sauvegarde du log d'enregistrement du client
             $user = $this->getUser();
             $notification = $this->get('monolog.logger.notification');
-            $notification->notice($user.' a enregistré le client '.$code.'-'.$nom.' .\n');
+            $notification->notice($user.' a enregistré le client '.$code.'-'.$nom);
 
             $this->addFlash('notice', "Le Client ".$client->getNom()." a été crée avec succès.!");
 
-            return $this->redirectToRoute('client_index');
+            return $this->redirectToRoute('panier_sans_produit', array('client' => $client->getId()));
         }
 
         // Sauvegarde du log de consultation
         $user = $this->getUser();
         $notification = $this->get('monolog.logger.notification');
         $notification->notice($user.' a consulté la liste des clients par le module enregistrement. .\n');
+
+        // Destruction des sessions
+        $session->remove('clt');
+        $session->remove('panier');
+        $session->remove('produitEnPanier');
 
         return $this->render('client/index.html.twig', array(
             'clients' => $clients,
@@ -147,11 +153,15 @@ class ClientController extends Controller
         $notification = $this->get('monolog.logger.notification');
         $notification->notice($user.' a consulté la liste des clients par le module modification .\n');
 
+        // Recherche si le client est concerné par une vente
+        $valid = $em->getRepository('AppBundle:Facture')->findOneBy(array('client'  => $client->getId()));
+
         return $this->render('client/edit.html.twig', array(
             'client' => $client,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'clients' => $clients,
+            'valid' => $valid,
         ));
     }
 
@@ -174,7 +184,9 @@ class ClientController extends Controller
             // Sauvegarde du log de suppression
             $user = $this->getUser();
             $notification = $this->get('monolog.logger.notification');
-            $notification->notice($user.' a supprimé le client '.$client->getCode().'-'.$client->getNom().' .\n');
+            $notification->notice($user.' a supprimé le client '.$client->getCode().'-'.$client->getNom());
+
+            $this->addFlash('notice', "Le Client ".$client->getNom()." a été supprimé avec succès.!");
         }
 
         return $this->redirectToRoute('client_index');

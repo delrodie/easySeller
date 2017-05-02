@@ -21,5 +21,18 @@
 
 .input-seller{ width: 50px; text-align: center }
 .input-seller-monnaie{ width: 75px; text-align: center }
+.input-seller-facture{ width: 130px; text-align: center; font-weight: bold; font-size: 1.8em;}
+.input-seller-facture-monnaie{ width: 130px; text-align: center; font-weight: bold; color: red; font-size: 1.8em;}
+.facture-monnaie{ font-size: 1.8em; color: red;}
+.facture-total{ font-size: 1.8em;}
 
 .print{ font-size: 0.85em;}
+
+.table > tbody > tr > td { padding: 10px 5px; }
+.table > tbody > tr > td.thick-line,
+.table > tbody > tr > td.no-line {
+  padding: 5px 7px;
+}
+
+.table > tbody > tr > td.thick-line.p-t{ padding-top: 25px; }
+.table > tbody > tr > td.no-line.p-b { padding-left: 50px; }

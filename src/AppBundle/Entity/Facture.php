@@ -39,27 +39,6 @@ class Facture
     /**
      * @var string
      *
-     * @ORM\Column(name="tht", type="string", length=11, nullable=true)
-     */
-    private $tht;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tva", type="string", length=11, nullable=true)
-     */
-    private $tva;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mttc", type="string", length=11, nullable=true)
-     */
-    private $mttc;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="remise", type="string", length=11, nullable=true)
      */
     private $remise;
@@ -77,13 +56,6 @@ class Facture
      * @ORM\Column(name="verse", type="string", length=11, nullable=true)
      */
     private $verse;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="monnaie", type="string", length=11, nullable=true)
-     */
-    private $monnaie;
 
     /**
      * @var array
@@ -191,78 +163,6 @@ class Facture
     }
 
     /**
-     * Set tht
-     *
-     * @param string $tht
-     *
-     * @return Facture
-     */
-    public function setTht($tht)
-    {
-        $this->tht = $tht;
-
-        return $this;
-    }
-
-    /**
-     * Get tht
-     *
-     * @return string
-     */
-    public function getTht()
-    {
-        return $this->tht;
-    }
-
-    /**
-     * Set tva
-     *
-     * @param string $tva
-     *
-     * @return Facture
-     */
-    public function setTva($tva)
-    {
-        $this->tva = $tva;
-
-        return $this;
-    }
-
-    /**
-     * Get tva
-     *
-     * @return string
-     */
-    public function getTva()
-    {
-        return $this->tva;
-    }
-
-    /**
-     * Set mttc
-     *
-     * @param string $mttc
-     *
-     * @return Facture
-     */
-    public function setMttc($mttc)
-    {
-        $this->mttc = $mttc;
-
-        return $this;
-    }
-
-    /**
-     * Get mttc
-     *
-     * @return string
-     */
-    public function getMttc()
-    {
-        return $this->mttc;
-    }
-
-    /**
      * Set remise
      *
      * @param string $remise
@@ -287,30 +187,6 @@ class Facture
     }
 
     /**
-     * Set nap
-     *
-     * @param string $nap
-     *
-     * @return Facture
-     */
-    public function setNap($nap)
-    {
-        $this->nap = $nap;
-
-        return $this;
-    }
-
-    /**
-     * Get nap
-     *
-     * @return string
-     */
-    public function getNap()
-    {
-        return $this->nap;
-    }
-
-    /**
      * Set verse
      *
      * @param string $verse
@@ -332,30 +208,6 @@ class Facture
     public function getVerse()
     {
         return $this->verse;
-    }
-
-    /**
-     * Set monnaie
-     *
-     * @param string $monnaie
-     *
-     * @return Facture
-     */
-    public function setMonnaie($monnaie)
-    {
-        $this->monnaie = $monnaie;
-
-        return $this;
-    }
-
-    /**
-     * Get monnaie
-     *
-     * @return string
-     */
-    public function getMonnaie()
-    {
-        return $this->monnaie;
     }
 
     /**
@@ -500,5 +352,29 @@ class Facture
     public function getModifieLe()
     {
         return $this->modifieLe;
+    }
+
+    /**
+     * Set nap
+     *
+     * @param string $nap
+     *
+     * @return Facture
+     */
+    public function setNap($nap)
+    {
+        $this->nap = $nap;
+
+        return $this;
+    }
+
+    /**
+     * Get nap
+     *
+     * @return string
+     */
+    public function getNap()
+    {
+        return $this->nap;
     }
 }

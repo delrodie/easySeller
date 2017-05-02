@@ -30,6 +30,7 @@ class PanierController extends Controller
        if (!$session->has('clt')) {
          $nom = "Aucune vente encours";
          $code = "";
+         $client = $em->getRepository('AppBundle:Client')->findOneById(1);
        } else {
          $client = $em->getRepository('AppBundle:Client')->findOneById($session->get('clt'));
          $nom = $client->getNom();
@@ -38,9 +39,14 @@ class PanierController extends Controller
 
        // Calcul du nombre de produit en panier
        if (!$session->has('panier')) {
-         $article = 0;
+         $article = "";
+         $produitID = NULL;
        } else {
          $article = count($session->get('panier'));
+
+         // le dernier produit dans le panier
+          $produit = $em->getRepository('AppBundle:Produit')->findDernierProduitEnPanier(array_keys($session->get('panier')));
+          $produitID = $produit->getId();
        }
 
        return $this->render('panier/client.html.twig', array(
@@ -48,6 +54,7 @@ class PanierController extends Controller
            'code'  => $code,
            'article' => $article,
            'client' => $client,
+           'produitID'  => $produitID,
        ));
    }
 
@@ -85,7 +92,7 @@ class PanierController extends Controller
     *
     * @Route("/avec_produits-{id}", name="panier_avec_produit")
     */
-    public function panieravecproduitAction(Request $request, $id)
+    public function panieravecproduitAction(Request $request, $id = NULL)
     {
 
       $em = $this->getDoctrine()->getManager();
