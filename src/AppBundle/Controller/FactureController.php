@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Approvisionner controller.
+ * Facture controller.
  *
  * @Route("facture")
  */
@@ -163,4 +163,20 @@ class FactureController extends Controller
            'nombre_facture' => $nombre_facture,
        ));
      }
+
+    /**
+     * Liste des factures de ventes du jour
+     *
+     * @Route("/liste-vente-du-jour", name="facture_vente_jour")
+     */
+    public function venteJourAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $ventes = $em->getRepository('AppBundle:Facture')->findListeFactureDuJour();
+
+        return $this->render('facture/vente_jour.html.twig', array(
+            'ventes' => $ventes,
+        ));
+    }
 }

@@ -97,6 +97,24 @@ class FactureRepository extends \Doctrine\ORM\EntityRepository
     return $qb->getQuery()->getSingleScalarResult();
 	}
 
+  /**
+   * Liste des ventes du jour
+   *
+   * @author: Delrodie MAOI
+   */
+  public function findListeFactureDuJour()
+  {
+      $qb = $this->createQueryBuilder('f')
+                 ->where('f.publieLe BETWEEN :debut AND :fin')
+                 ->setParameters(array(
+                   'debut'  => date('Y-m-d 00:00:00', time()),
+                   'fin'  =>  date('Y-m-d 23:59:59', time())
+                 ))
+      ;
+
+      return $qb->getQuery()->getResult();
+  }
+
 
 
     /**
