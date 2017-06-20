@@ -74,6 +74,13 @@ class Produit
     private $qte;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="remise", type="string", length=2, nullable=true)
+     */
+    private $remise;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="statut", type="boolean", nullable=true)

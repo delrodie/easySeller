@@ -24,5 +24,21 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/log", name="log")
+     */
+     public function logAction()
+     {
+       return $this->render('default/log.html.twig');
+     }
+
+     /**
+      * @Route("/fichier", name="logfichier")
+      */
+      public function logfichierAction()
+      {
+        return $this->render('default/notification.php');
+      }
+
 
 }

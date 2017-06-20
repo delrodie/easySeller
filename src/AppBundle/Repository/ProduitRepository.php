@@ -62,4 +62,37 @@ class ProduitRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('array', $array);
         return $qb->getQuery()->getResult();
      }
+
+    /**
+     * Liste des produits dont le stock est supérieur a 0
+     *
+     * @author: Delrodie AMOIKON
+     * @date: 30/04/2017
+     * @version: v1.0
+     */
+     public function findProduitStockSupUn()
+     {
+       $qb = $this->createQueryBuilder('p')
+                  -> Select('p')
+                  ->Where('p.qte >= :qte')
+                  ->setParameter('qte', 1);
+        return $qb->getQuery()->getResult();
+     }
+
+     /**
+      * Recherche du produit dans le tableau
+      *
+      * Author: Delrodie AMOIKON
+      * Date: 01/05/2017
+      * Since: v1.0
+      */
+      public function findDernierProduitEnPanier($array)
+      {
+        $qb = $this->createQueryBuilder('p')
+                 ->Select('p')
+                 ->Where('p.id IN (:array)')
+                 ->setParameter('array', $array)
+                 ->setMaxResults(1);
+         return $qb->getQuery()->getSingleResult();
+      }
 }

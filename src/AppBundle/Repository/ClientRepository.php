@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\Query;
+
 /**
  * ClientRepository
  *
@@ -10,40 +12,53 @@ namespace AppBundle\Repository;
  */
 class ClientRepository extends \Doctrine\ORM\EntityRepository
 {
-   /**
-    * Fonction de recherche du ID du client
-    *
-    * Author: Delrodie AMOIKON
-    * Date: 29/04/2017
-    * Since: v1.0
-    */
-    public function getClientID()
-    {
-        $em = $this->getEntityManager();
-        $qb = $this->createQueryBuilder('c')
-           ->select('count(c.id)')
+
+    /**
+     * Fonction de recherche du ID du client
+     *
+     * Author: Delrodie AMOIKON
+     * Date: 29/04/2017
+     * Since: v1.0
+     */
+     public function getNumeroOrdre()
+     {
+       $em = $this->getEntityManager();
+       $qb = $this->createQueryBuilder('c')
+          ->select('count(c.id)')
        ;
-        ;
-        try {
+       $compteur = $qb->getQuery()->getSingleScalarResult();
 
-            $id = $qb->getQuery()->getSingleScalarResult();
+       if ($compteur != 0) {
+         $qb = $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(1)
+         ;
+           try {
 
-            $id = $id + 1;
+               $id = $qb->getQuery()->getSingleScalarResult();
+               //dump($id); die();
 
-            if ($id < 10) {
-               $num = '000'.$id;
-            } elseif ($id < 100) {
-               $num = '00'.$id;
-            } elseif ($id < 1000) {
-               $num = '0'.$id;
-            } else{
-               $num = $id;
-            }
+               $id = $id + 1;
 
-            return $num;
+               if ($id < 10) {
+                  $num = '000'.$id;
+               } elseif ($id < 100) {
+                  $num = '00'.$id;
+               } elseif ($id < 1000) {
+                  $num = '0'.$id;
+               } else{
+                  $num = $id;
+               }
 
-        } catch (NoResultException $e) {
-            return $e;
-        }
-    }
+               return $num;
+
+           } catch (NoResultException $e) {
+               return $e;
+           }
+       } else {
+         return $num = '0001';
+       }
+
+     }
 }
