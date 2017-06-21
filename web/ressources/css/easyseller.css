@@ -36,3 +36,5 @@
 
 .table > tbody > tr > td.thick-line.p-t{ padding-top: 25px; }
 .table > tbody > tr > td.no-line.p-b { padding-left: 50px; }
+
+.montant-total-jour{ padding-right: 70px;}

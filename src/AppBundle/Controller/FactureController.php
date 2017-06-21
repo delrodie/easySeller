@@ -182,4 +182,18 @@ class FactureController extends Controller
             'ventes' => $ventes,
         ));
     }
+
+    /**
+     * Client concerné par la facture
+     *
+     * @Route("/client{id}-concerne", name="client_concerne")
+     */
+    public function clientConcerneAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('AppBundle:Client')->findOneById($id);
+
+        return $this->render('facture/facture_client.html.twig', [ 'client' => $client]);
+    }
 }

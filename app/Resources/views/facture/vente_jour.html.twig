@@ -45,6 +45,19 @@
                 {% endif %}
               {% endfor %}
               <!-- \Message -->
+              <!-- Total vente -->
+              <div class="row">
+                <div class="pull-right montant-total-jour">
+                  {% set totauxVentes = 0 %}
+                  {% for vente in ventes %}
+                      {% set totauxVentes = totauxVentes + vente.panier.totalMontantVente %}
+                  {% endfor %}
+                  <h2 class="m-t-0 m-b-15 text-primary font-light">
+                    <b> {{ totauxVentes|monnaie }} </b> FCFA
+                  </h2>
+                </div>
+              </div>
+              <!-- \Total vente -->
               <h4 class="m-t-0 m-b-30">Liste des ventes</h4>
               <div class="m-t-20">
                 <table id="datatable-buttons" class="table table-striped table-bordered">
@@ -55,8 +68,6 @@
                       <th class="text-center">Numeros</th>
                       <th class="text-center">Clients</th>
                       <th class="text-center">Montant TTC</th>
-                      <th class="text-center">Reductions</th>
-                      <th class="text-center">NAP</th>
                       <th class="text-center"></th>
                     </tr>
                   </thead>
@@ -68,11 +79,11 @@
                           <td class="text-center">{{ loop.index }}</td>
                           <td class="text-center">{{ vente.publieLe|date('H:i:s') }}</td>
                           <td class="text-center">{{ vente.numero }}</td>
-                          <td class="text-center">{{ vente.client }}</td>
+                          <td class="text-center">{{ render(url('client_concerne', {'id': vente.client})) }}</td>
                           <td class="text-right monnaie">{{ vente.panier.totalMontantVente|monnaie }}</td>
-                          <td class="text-right monnaie">{{ ((vente.panier.totalMontantVente)-(vente.nap))|monnaie }}</td>
-                          <td class="text-right monnaie">{{ vente.nap|monnaie }}</td>
-                          <td class="text-center"></td>
+                          <td class="text-center">
+                            <a href="{{ path('impression_facture', {'id': vente.id })}}" target="_blank"><i class="fa fa-file-text-o "></i></a>
+                          </td>
                         </tr>
                     {% endfor %}
                   </tbody>
