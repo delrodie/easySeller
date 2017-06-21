@@ -50,8 +50,15 @@ class ProduitType extends AbstractType
                       "placeholder" => "Prix de vente"
                   )
             ))
-            //->add('qte')
-            ->add('statut')
+            ->add('remise', TextType::class, array(
+                  'attr'  => array(
+                      'class' => 'form-control',
+                      'autocomplete'  => 'off',
+                      "placeholder" => "Remise maximum sans %"
+                  ),
+                  'required'  => false
+            ))
+            //->add('qte')->add('statut')
             //->add('slug')->add('publiePar')->add('modifiePar')->add('publieLe')->add('modifieLe')
             ->add('categorie', EntityType::class, array(
                   'attr'  => array(

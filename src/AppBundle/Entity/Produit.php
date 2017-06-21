@@ -479,4 +479,28 @@ class Produit
     {
         return $this->categorie;
     }
+
+    /**
+     * Set remise
+     *
+     * @param string $remise
+     *
+     * @return Produit
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return string
+     */
+    public function getRemise()
+    {
+        return $this->remise;
+    }
 }

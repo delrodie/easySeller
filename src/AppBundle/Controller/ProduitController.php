@@ -64,6 +64,9 @@ class ProduitController extends Controller
             $code = $code_categorie.''.$num;
             $produit->setCode($code);
 
+            // Si Remise == NULL alors affecter O
+            if(!($produit->getRemise()) || !(is_numeric($produit->getRemise()))) $produit->setRemise(0) ; //dump($produit->getRemise());die();
+
             $produit->setPa(0);
             $produit->setQte(0);
 
@@ -113,7 +116,13 @@ class ProduitController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            // Si Remise == NULL alors affecter O
+            if(!($produit->getRemise()) || !(is_numeric($produit->getRemise()))) $produit->setRemise(0) ; //dump($produit->getRemise());die();
+            
+            //$em->persist($produit); dump()
+            $em->flush();
 
             // Sauvegarde du log de consultation
             $user = $this->getUser();

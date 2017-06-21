@@ -98,29 +98,80 @@ class PanierController extends Controller
       $em = $this->getDoctrine()->getManager();
       $session = $request->getSession();
 
-      // Mise en session du produit
+      // Mise en session de la quantité du produit
       if (!$session->has('panier')) $session->set('panier', array());
       $panier = $session->get('panier');
 
+      // Mise en session de la remise du produit
+      if (!$session->has('remise')) $session->set('remise', array());
+      $remise = $session->get('remise');
 
-      // Si les session existe alors modifier les valeurs
+      // Recuperation de la quantité en stock et du plafond de remise
+      $produit = $em->getRepository('AppBundle:Produit')->findOneById($id);
+      $qteEnStock = $produit->getQte();
+      $remisePlafond = $produit->getRemise();
+
+
+      // Si la session de la quantité existe alors modifier les valeurs
       // Sinon ajouter les nouvelles valeurs
       if (array_key_exists($id, $panier)) {
         if ($request->query->get('qte') != null) {
-          $panier[$id] = $request->query->get('qte');
+          // Si la quantité en stock en inférieure a la saisie alors affecté valeur en stock
+          if ($qteEnStock < $request->query->get('qte')) {
+            $panier[$id] = $qteEnStock;
+          } else {
+            $panier[$id] = $request->query->get('qte');
+          }
+        }else {
+          $panier[$id] = 1;
         }
       } else {
         if ($request->query->get('qte') != null)
         {
-          $panier[$id] = $request->query->get('qte');
-            //dump($panier[$id]); die();
+          // Si la quantité en stock en inférieure a la saisie alors affecté valeur en stock
+          if ($qteEnStock < $request->query->get('qte')) {
+            $panier[$id] = $qteEnStock;
+          } else {
+            $panier[$id] = $request->query->get('qte');
+          }
         } else{
-          return $this->redirectToRoute('panier_sans_produit', array('client' => $session->get('clt')));
+          $panier[$id] = 1;
+          //return $this->redirectToRoute('panier_sans_produit', array('client' => $session->get('clt')));
         }
       }
 
+      // Si la session de la remise  existe alors modifier les valeurs
+      // Sinon ajouter les nouvelles valeurs
+      if (array_key_exists($id, $remise)) {
+        if ($request->query->get('remise') != null) {
+          // Si le plafond de remise est inferieur a la saisie alors affecté valeur bd
+          if ($remisePlafond < $request->query->get('remise')) {
+            $remise[$id] = $remisePlafond;
+          } else {
+            $remise[$id] = $request->query->get('remise');
+          }
+        }else {
+          $remise[$id] = 0;
+        }
+      } else {
+        if ($request->query->get('remise') != null)
+        {
+          // Si le plafond de remise est inferieur a la saisie alors affecté valeur bd
+          if ($remisePlafond < $request->query->get('remise')) {
+            $remise[$id] = $remisePlafond;
+          } else {
+            $remise[$id] = $request->query->get('remise');
+          }
+        } else{
+          $remise[$id] = 0;
+          //0return $this->redirectToRoute('panier_sans_produit', array('client' => $session->get('clt')));
+        }
+      }
+
+
       // Enregistrement de la qte dans la session
       $session->set('panier',$panier);
+      $session->set('remise',$remise);
 
       // Informations du client
       $client = $em->getRepository('AppBundle:Client')->findOneById($session->get('clt'));
@@ -128,7 +179,7 @@ class PanierController extends Controller
       // Liste des produits dont le stock est plus d'un
       $produits = $em->getRepository('AppBundle:Produit')->findProduitStockSupUn();
 
-      // Liste des produits en panier
+      // Liste des produits en panier et leur remise
       $paniers = $em->getRepository('AppBundle:Produit')->findArray(array_keys($session->get('panier')));
       //dump($paniers); die();
 
@@ -137,6 +188,7 @@ class PanierController extends Controller
           'client' => $client,
           'paniers' => $paniers,
           'panier'  => $session->get('panier'),
+          'remise'  => $session->get('remise'),
       ));
     }
 

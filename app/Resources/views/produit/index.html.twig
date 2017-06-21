@@ -58,7 +58,7 @@
                       <th class="text-center">PA</th>
                       <th class="text-center">PV</th>
                       <th class="text-center">QTE</th>
-                      <th></th>
+                      <th class="text-center">Remise</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,11 +73,7 @@
                           <td class="text-right monnaie">{{ produit.pa|monnaie }}</td>
                           <td class="text-right monnaie">{{ produit.pv|monnaie }}</td>
                           <td class="text-center">{{ produit.qte }}</td>
-                          <td class="text-center">
-                            <a href="#">
-                              <i class="fa fa-shopping-cart"></i>
-                            </a>
-                          </td>
+                          <td class="text-center">{{ produit.remise }}%</td>
                         </tr>
                     {% endfor %}
                   </tbody>

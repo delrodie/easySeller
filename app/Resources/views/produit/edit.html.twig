@@ -94,14 +94,12 @@
                           </div>
                         </div>
                         <div class="col-sm-3 col-sm-offset-1">
-                          <div class="form-group"><br>
-                            <div class="checkbox checkbox-primary">
-                              {{ form_widget(edit_form.statut) }}
-                              {{ form_errors(edit_form.statut) }}
-                              <label class="control-label"> Activez/desactivez cet article
-                                <span class="required"> </span>
-                              </label>
-                            </div>
+                          <div class="form-group">
+                            <label class="control-label">Remise maximun
+                              <span class="required">  </span>
+                            </label>
+                            {{ form_widget(edit_form.remise) }}
+                            {{ form_errors(edit_form.remise) }}
                           </div>
                         </div>
                       </div>

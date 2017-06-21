@@ -62,6 +62,9 @@
                                   <strong>Quantites</strong>
                                 </td>
                                 <td class="text-center">
+                                  <strong>Remises</strong>
+                                </td>
+                                <td class="text-center">
                                   <strong>Montant</strong>
                                 </td>
                               </tr>
@@ -72,12 +75,13 @@
                               {% set totauxHT = 0 %}
                               {% set tva = 0 %}
                               {% for produit in produits %}
-                                {% set montantTotal = produit.pv * panier[produit.id] %}
+                                {% set montantTotal = produit.pv * panier[produit.id] * (1 - (remise[produit.id] / 100)) %}
                               <tr>
                               <td class="text-center">{{ produit.code }}</td>
                                 <td> {{ produit.categorie }} {{ produit.nom }} {{ produit.model }}</td>
                                 <td class="text-right monnaie">{{ produit.pv|monnaie }}</td>
                                 <td class="text-center">{{ panier[produit.id] }}</td>
+                                <td class="text-center">{{ remise[produit.id] }}</td>
                                 <td class="text-right monnaie">{{ montantTotal|monnaie}}</td>
                               </tr>
                                 {% set totauxHT = totauxHT + montantTotal %}
@@ -98,21 +102,6 @@
                                   </div>
                                   <div class="col-md-6 text-right">
                                     {{ form_widget(form.nap, {'attr': {'class': 'form-control input-seller-facture-monnaie', 'value': totauxHT, 'readonly': 'readonly' }})}}
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="no-line"></td>
-                                <td class="no-line"></td>
-                                <td class="no-line text-right"></td>
-                                <td class="no-line text-right"></td>
-                                <td class="no-line text-right">
-                                  <div class="col-md-6 text-right">
-                                    <strong>Remise</strong>
-                                  </div>
-                                  <div class="col-md-6 text-right">
-                                    {{ form_widget(form.remise) }}
-                                    {{ form_errors(form.remise) }}
                                   </div>
                                 </td>
                               </tr>
