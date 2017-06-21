@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ProduitType extends AbstractType
 {
@@ -58,6 +59,10 @@ class ProduitType extends AbstractType
                   ),
                   'required'  => false
             ))
+            ->add('file', FileType::class, array(
+              'label' => "Telecharger l'image",
+              'required' => false,
+          ))
             //->add('qte')->add('statut')
             //->add('slug')->add('publiePar')->add('modifiePar')->add('publieLe')->add('modifieLe')
             ->add('categorie', EntityType::class, array(

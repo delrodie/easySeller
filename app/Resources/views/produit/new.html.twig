@@ -96,10 +96,19 @@
                         <div class="col-sm-3 col-sm-offset-1">
                           <div class="form-group">
                             <label class="control-label">Remise maximum
-                              <span class="required"> (sans le symbole %) </span>
+                              <span class="required"></span>
                             </label>
                             {{ form_widget(form.remise) }}
                             {{ form_errors(form.remise) }}
+                          </div>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-1">
+                          <div class="form-group">
+                            <label class="control-label">
+                              <span class="required"></span>
+                            </label>
+                            {{ form_widget(form.file) }}
+                            {{ form_errors(form.file) }}
                           </div>
                         </div>
                       </div>
