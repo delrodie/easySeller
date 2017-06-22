@@ -74,6 +74,9 @@
                                   <strong>Quantites</strong>
                                 </td>
                                 <td class="text-center">
+                                  <strong>Remises (%)</strong>
+                                </td>
+                                <td class="text-center">
                                   <strong>Montants</strong>
                                 </td>
                               </tr>
@@ -85,10 +88,12 @@
                                 <td>{{ produit.nom }} {{ produit.model }}</td>
                                 <td class="text-center">{{ produit.pv|monnaie }}</td>
                                 <td class="text-center">{{ produit.qte }}</td>
+                                <td class="text-center">{{ produit.remise }}</td>
                                 <td class="text-right">{{ produit.mtot|monnaie }}</td>
                               </tr>
                               {% endfor %}
                               <tr>
+                                <td class="thick-line p-t"></td>
                                 <td class="thick-line p-t"></td>
                                 <td class="thick-line p-t"></td>
                                 <td class="thick-line p-t"></td>
@@ -103,31 +108,16 @@
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
+                                <td class="no-line"></td>
                                 <td class="no-line text-right">
-                                  {% if facture.remise|length > 2 %}
-                                      <strong>Réduction</strong>
-                                  {% else %}
-                                      <strong>Remise (%)</strong>
-                                  {% endif %}
+                                  <strong>Dont TVA (18%)</strong>
                                 </td>
                                 <td class="no-line text-right">
-                                  {{ facture.remise|monnaie }}
+                                  {{ (facture.panier.totalMontantVente * 0.18)|monnaie }}
                                 </td>
                               </tr>
-                              {% if (facture.remise != 0) %}
                               <tr>
                                 <td class="no-line"></td>
-                                <td class="no-line"></td>
-                                <td class="no-line"></td>
-                                <td class="no-line text-right">
-                                  <strong>Net à payer</strong>
-                                </td>
-                                <td class="no-line text-right">
-                                  {{ facture.nap|monnaie }}
-                                </td>
-                              </tr>
-                              {% endif %}
-                              <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
@@ -139,6 +129,7 @@
                                 </td>
                               </tr>
                               <tr>
+                                <td class="no-line p-b"></td>
                                 <td class="no-line p-b"></td>
                                 <td class="no-line p-b"></td>
                                 <td class="no-line p-b"></td>

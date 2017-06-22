@@ -100,7 +100,7 @@ class FactureRepository extends \Doctrine\ORM\EntityRepository
   /**
    * Liste des ventes du jour
    *
-   * @author: Delrodie MAOI
+   * @author: Delrodie AMOIKON
    */
   public function findListeFactureDuJour()
   {
@@ -113,6 +113,24 @@ class FactureRepository extends \Doctrine\ORM\EntityRepository
       ;
 
       return $qb->getQuery()->getResult();
+  }
+
+  /**
+   * Total des factures en fonction des dates
+   *
+   * @author: Delrodie AMOIKON
+   * @version: v1.0 21/06/2017
+   */
+  public function getMontantVente($dateDebut, $dateFin)
+  {
+      $qb = $this->createQueryBuilder('f')
+                ->select('sum(f.nap)')
+                ->where('f.publieLe BETWEEN :debut AND :fin')
+                ->setParameters(array(
+                  'debut'  => $dateDebut,
+                  'fin'  =>  $dateFin
+                ));
+      return $qb->getQuery()->getSingleScalarResult();
   }
 
 

@@ -58,7 +58,8 @@
                       <th class="text-center">PA</th>
                       <th class="text-center">PV</th>
                       <th class="text-center">QTE</th>
-                      <th></th>
+                      <th class="text-center">Remise</th>
+                      <th class="text-center"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -73,10 +74,28 @@
                           <td class="text-right monnaie">{{ produit.pa|monnaie }}</td>
                           <td class="text-right monnaie">{{ produit.pv|monnaie }}</td>
                           <td class="text-center">{{ produit.qte }}</td>
+                          <td class="text-center">{{ produit.remise }}%</td>
                           <td class="text-center">
-                            <a href="#">
-                              <i class="fa fa-shopping-cart"></i>
-                            </a>
+                            {% if produit.url %}
+                            <a href="#" data-toggle="modal" data-target="#{{ produit.slug }}"><i class="fa fa-picture-o"></i></a>
+
+                            <div id="{{ produit.slug }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">{{ produit.nom }} {{ produit.model }}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <img src="{{ asset('ressources/uploads/produits/' ~ produit.id ~ '.' ~ produit.url )}}" alt="{{ produit.nom }}" class="img-thumbnail" />
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fermer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {% endif %}
                           </td>
                         </tr>
                     {% endfor %}

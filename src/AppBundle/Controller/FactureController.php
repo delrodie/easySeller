@@ -25,6 +25,7 @@ class FactureController extends Controller
        $session = $request->getSession();
        $em = $this->getDoctrine()->getManager();
        $panier = $session->get('panier');
+       $remise = $session->get('remise');
        $clt = $session->get('clt');
        $stock = array();
        $totalMontantVente = 0;
@@ -34,7 +35,7 @@ class FactureController extends Controller
 
        foreach ($produits as $produit) {
            // Calcul du montant de vente de chaque produit
-           $montantVente = ($produit->getPv() * $panier[$produit->getId()]);
+           $montantVente = ($produit->getPv() * $panier[$produit->getId()] * (1 - ($remise[$produit->getId()] / 100 )));
            $totalMontantVente += $montantVente;
 
            // Mise en tableau des produits
@@ -44,6 +45,7 @@ class FactureController extends Controller
               'model' => $produit->getModel(),
               'pv'    => $produit->getPv(),
               'qte'   => $panier[$produit->getId()],
+              'remise'   => $remise[$produit->getId()],
               'mtot'  => $montantVente,
            );
 
@@ -93,7 +95,6 @@ class FactureController extends Controller
           $facture->setClient($client->getId());
           $facture->setNumero($numero);
           $facture->setNap($facture->getNap());
-          $facture->setRemise($facture->getRemise());
           $facture->setVerse($facture->getVerse());
           $facture->setPanier($this->savePanier($request));
 
@@ -106,6 +107,7 @@ class FactureController extends Controller
           // Destruction des sessions
           $session->remove('clt');
           $session->remove('panier');
+          $session->remove('remise');
           $session->remove('produitEnPanier');
 
           return $this->redirectToRoute('impression_facture', array('id' => $facture->getId()));
@@ -119,6 +121,7 @@ class FactureController extends Controller
         return $this->render('panier/validation.html.twig', array(
             'client'  => $client,
             'panier' => $panier,
+            'remise' => $session->get('remise'),
             'produits'  => $produits,
             'form' => $form->createView(),
         ));
@@ -178,5 +181,19 @@ class FactureController extends Controller
         return $this->render('facture/vente_jour.html.twig', array(
             'ventes' => $ventes,
         ));
+    }
+
+    /**
+     * Client concerné par la facture
+     *
+     * @Route("/client{id}-concerne", name="client_concerne")
+     */
+    public function clientConcerneAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('AppBundle:Client')->findOneById($id);
+
+        return $this->render('facture/facture_client.html.twig', [ 'client' => $client]);
     }
 }

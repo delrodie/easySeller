@@ -17,14 +17,14 @@ class FactureSaveType extends AbstractType
     {
         $builder
             //->add('client')->add('tht')->add('tva')->add('mttc')
-            ->add('remise', TextType::class, array(
+            /*->add('remise', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control input-seller-facture',
                       'autocomplete'  => 'off',
                       'onblur'  => 'remise()',
                   ),
                   'required' => false,
-            ))
+            ))*/
             ->add('nap', TextType::class, array(
                   'attr'  => array(
                       'class' => 'form-control input-seller-facture-monnaie',
