@@ -49,12 +49,17 @@ class UserType extends AbstractType
         //->add('passwordRequestedAt')
         ->add('roles', ChoiceType::class, array(
               'choices' => array(
-                'UTILISATEUR '  => 'ROLE_USER',
+                //'UTILISATEUR '  => 'ROLE_USER',
+                'CAISSE '  => 'ROLE_CAISSE',
+                'STOCK '  => 'ROLE_STOCK',
                 'ADMINISTRATEUR '  => 'ROLE_ADMIN',
-                'SUPER ADMINISTRATEUR '  => 'ROLE_SUPER_ADMIN',
+              ),
+              'attr'  => array(
+                  'class' => 'form-control',
+                  'autocomplete'  => 'off'
               ),
               'multiple'  => true,
-              'expanded'  => true
+              'expanded'  => false
         ))
         //->add('credentialsExpired')
         //->add('credentialsExpireAt')
