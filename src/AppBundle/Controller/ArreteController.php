@@ -52,7 +52,7 @@ class ArreteController extends Controller
             $em->persist($arrete);
             $em->flush();
 
-            return $this->redirectToRoute('arrete_show', array('id' => $arrete->getId()));
+            return $this->redirectToRoute('client_index');
         }
 
         return $this->render('arrete/new.html.twig', array(

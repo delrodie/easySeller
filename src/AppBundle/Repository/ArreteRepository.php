@@ -10,4 +10,25 @@ namespace AppBundle\Repository;
  */
 class ArreteRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Verification de l'ouverture de caisse
+     *
+     * @author: Delrodie AMOIKON
+     * @version v1.0 28/06/2017
+     */
+    public function ouvertureCaisse($user)
+    {
+        $qb = $this->createQueryBuilder('a', 'a.publiePar')
+                   ->where('a.publieLe LIKE :date')
+                   //->andWhere('a.statut <> 1')
+                   ->andWhere('a.publiePar = :user')
+                   ->orderBy('a.publieLe', 'ASC')
+                   //->setMaxResults(1)
+                   ->setParameters(array(
+                       'date' => '%'.date('Y-m-d').'%',
+                       'user' => $user,
+                   ))
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }
