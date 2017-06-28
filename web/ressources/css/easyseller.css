@@ -38,3 +38,6 @@
 .table > tbody > tr > td.no-line.p-b { padding-left: 50px; }
 
 .montant-total-jour{ padding-right: 70px;}
+
+.billetage{color: blue; font-weight: bold; text-align: center;}
+.billetage.input-seller-facture{ width: 130px; text-align: center; font-weight: bold; font-size: 1.2em;}

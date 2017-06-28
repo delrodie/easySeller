@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Encaisser une caisse{% endblock %}
+
+{% block stylesheets %}
+<!-- DataTables -->
+    <link href="{{ asset('ressources/vendor/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('ressources/vendor/plugins/datatables/buttons.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('ressources/vendor/plugins/datatables/fixedHeader.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('ressources/vendor/plugins/datatables/responsive.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('ressources/vendor/plugins/datatables/dataTables.bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('ressources/vendor/plugins/datatables/scroller.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="content">
+      <div class="">
+        <div class="page-header-title">
+          <h4 class="page-title">Liste des arrêtés de caisses</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <table id="datatable-buttons" class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Dates</th>
+                    <th class="text-center">Caisses</th>
+                    <th class="text-center">Ouvertures</th>
+                    <th class="text-center">Clotures</th>
+                    <th class="text-center">R. caisses</th>
+                    <th class="text-center">R. machines</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for arrete in arretes %}
+                      <tr>
+                        <td class="text-right">{{ loop.index }}</td>
+                        <td class="text-center">{{ arrete.publieLe|date('d-m-Y')}}</td>
+                        <td class="text-left">{{ arrete.caissiere|title }}</td>
+                        <td class="text-right">{{ arrete.totMat|monnaie }} &nbsp; &nbsp;</td>
+                        <td class="text-right">{{ arrete.totSoir|monnaie }} &nbsp; &nbsp;</td>
+                        <th class="text-right">{{ (arrete.totSoir - arrete.totMat)|monnaie }} &nbsp; &nbsp;</th>
+                        <th class="text-right">{{ (arrete.totSoir - arrete.totMat)|monnaie }} &nbsp; &nbsp;</th>
+                        <td class="text-center">
+                          {% if (arrete.statut == 2 ) %}
+                            <a href="{{ path('arrete_edit', {'id': arrete.id})}}"><i class="fa fa-edit"></i></a> |
+                          {% endif %}
+                          <a href="{{ path('arrete_show', {'id': arrete.id})}}"><i class="fa fa-search"></i></a>
+                        </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <!-- Datatables-->
+        <script src="{{ asset('ressources/vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.bootstrap.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/buttons.bootstrap.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/jszip.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/pdfmake.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/vfs_fonts.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.fixedHeader.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.keyTable.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/responsive.bootstrap.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/datatables/dataTables.scroller.min.js')}}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{{ asset('ressources/vendor/pages/datatables.init.js')}}"></script>
+
+        <script src="{{ asset('ressources/vendor/js/app.js')}}"></script>
+{% endblock %}

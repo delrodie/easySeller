@@ -44,6 +44,13 @@ class User extends BaseUser {
      */
     protected $firstLogin;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arrete", mappedBy="caissiere")
+     */
+     private $arretes;
+
+
     public function __construct() {
         parent::__construct();
         $this->groups = new ArrayCollection();
@@ -141,4 +148,38 @@ class User extends BaseUser {
         return in_array($name, $this->getGroupNames());
     }
 
+
+    /**
+     * Add arrete
+     *
+     * @param \AppBundle\Entity\Arrete $arrete
+     *
+     * @return User
+     */
+    public function addArrete(\AppBundle\Entity\Arrete $arrete)
+    {
+        $this->arretes[] = $arrete;
+
+        return $this;
+    }
+
+    /**
+     * Remove arrete
+     *
+     * @param \AppBundle\Entity\Arrete $arrete
+     */
+    public function removeArrete(\AppBundle\Entity\Arrete $arrete)
+    {
+        $this->arretes->removeElement($arrete);
+    }
+
+    /**
+     * Get arretes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretes()
+    {
+        return $this->arretes;
+    }
 }

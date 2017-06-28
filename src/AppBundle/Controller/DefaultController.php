@@ -19,6 +19,12 @@ class DefaultController extends Controller
       $notification = $this->get('monolog.logger.notification');
       $notification->notice($user.' a consulté le tableau de bord .\n');
 
+      // Affectation de l'user en fonction de son statut
+      $roles[] = $user->getRoles();
+      if ($roles[0][0] === 'ROLE_CAISSE') {
+        # code...
+      }
+
         return $this->render('default/index.html.twig');
     }
 

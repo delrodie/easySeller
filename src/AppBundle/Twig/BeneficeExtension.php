@@ -16,7 +16,8 @@ class BeneficeExtension extends \Twig_Extension
   public function calculBenefice($pr, $pv, $qte)
   {
     // Calcul du benefice de l'article
-    $benefice = (($pv * $qte) - $pr);
+    //$benefice = (($pv * $qte) - $pr);
+    $benefice = ($pv - $pr);
 
     return $benefice;
   }

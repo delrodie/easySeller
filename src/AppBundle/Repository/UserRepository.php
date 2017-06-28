@@ -34,4 +34,22 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
           return $e;
       }
    }
+
+   /**
+    * Fonction de recherche de l'utilisateur
+    *
+    * Author: Delrodie AMOIKON
+    * Date: 26/06/2017
+    * Since: v1.0
+    */
+    public function getCaissiere($user)
+    {
+       //die($user);
+        $em = $this->getEntityManager();
+
+        $qb = $this->createQueryBuilder('u')
+                   ->where('u.id = :user')
+                   ->setParameter('user', $user);
+         return $qb;
+    }
 }
