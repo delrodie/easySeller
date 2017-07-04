@@ -24,7 +24,7 @@ class DefaultController extends Controller
       // Affectation de l'user en fonction de son statut
       $roles[] = $user->getRoles();
       if ($roles[0][0] === 'ROLE_CAISSE') {
-          $arrete = $em->getRepository('AppBundle:Arrete')->ouvertureCaisse($user->getUsername());//dump($arrete);die();
+          $arrete = $em->getRepository('AppBundle:Arrete')->ouvertureCaisse($user->getId());//dump($arrete);die();
 
           foreach ($arrete as $key => $value) {
             $arreteStatut= $value->getStatut();
@@ -35,7 +35,6 @@ class DefaultController extends Controller
           } else {
             return $this->redirectToRoute('arrete_edit', array('id' => $arreteID));
           }
-
       }
 
         return $this->render('default/index.html.twig');

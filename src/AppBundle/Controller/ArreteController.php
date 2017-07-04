@@ -39,6 +39,28 @@ class ArreteController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        // Affectation de l'user en fonction de son statut
+        $roles[] = $user->getRoles();
+        if ($roles[0][0] === 'ROLE_CAISSE') {
+            $arrete = $em->getRepository('AppBundle:Arrete')->ouvertureCaisse($user->getUsername());//dump($arrete);die();
+
+            foreach ($arrete as $key => $value) {
+              $arreteStatut= $value->getStatut();
+              $arreteID = $value->getId();
+            }
+            if ((!$arrete) || ($arreteStatut != 1)) {
+              return $this->redirectToRoute('arrete_new');
+            } else {
+              return $this->redirectToRoute('arrete_edit', array('id' => $arreteID));
+            }
+        }elseif (($roles[0][0] === 'ROLE_ADMIN') || ($roles[0][0] === 'ROLE_SUPER_ADMIN')) {
+            return $this->redirectToRoute('arrete_index');
+        }else{
+            throw new AccessDeniedException();
+        }
+
         $arrete = new Arrete();
         $user = $this->getUser();
         $form = $this->createForm('AppBundle\Form\ArreteType', $arrete, array('user' => $user));

@@ -21,7 +21,7 @@ class ArreteRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('a', 'a.publiePar')
                    ->where('a.publieLe LIKE :date')
                    //->andWhere('a.statut <> 1')
-                   ->andWhere('a.publiePar = :user')
+                   ->andWhere('a.caissiere = :user')
                    ->orderBy('a.publieLe', 'ASC')
                    //->setMaxResults(1)
                    ->setParameters(array(
