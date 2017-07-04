@@ -69,9 +69,9 @@
                               <th class="text-center">N°</th>
                               <th class="text-center">Articles</th>
                               <th class="text-center">Quantites</th>
-                              <th class="text-center">P.Achat</th>
-                              <th class="text-center">P.Revient</th>
-                              <th class="text-center">P.vente</th>
+                              <th class="text-center">PA Unit.</th>
+                              <th class="text-center">PR Unit.</th>
+                              <th class="text-center">PV Unit.</th>
                               <th class="text-center">Benefice</th>
                               <th></th>
                             </tr>
@@ -88,7 +88,7 @@
 
                             {% for produit in produits %}
                                 {% set montantFac = approvisionnement.montant %}
-                                {% set paArticle = stockPA[produit.id] %}
+                                {% set paArticle = stockPA[produit.id] / stockQte[produit.id] %}
                                 {% set fret = approvisionnement.fret %}
                                 {% set prixRevient = approvisionnement.montant|prixrevient(paArticle,fret) %}
                                 <!--{% set benefice = prixRevient|benefice(produit.pv,stockQte[produit.id]) %}-->
@@ -99,7 +99,7 @@
                                   <td class="text-right">{{ loop.index }}</td>
                                   <td>{{ produit.code }}-{{ produit.categorie }} {{ produit.model }}</td>
                                   <td class="text-center">{{ stockQte[produit.id] }}</td>
-                                  <td class="text-right monnaie">{{ stockPA[produit.id]|monnaie }}</td>
+                                  <td class="text-right monnaie">{{ paArticle|monnaie }}</td>
                                   <td class="text-right monnaie">{{ prixRevient|monnaie }}</td>
                                   <td class="text-right monnaie">{{ prixVente|monnaie }}</td>
                                   <td class="text-right monnaie">{{ benefice|monnaie }}</td>
@@ -118,7 +118,8 @@
                                   <td class="thick-line text-right" colspan="3"><strong>Prix d'achat fournisseur</strong></td>
                                   <td class="thick-line text-right">{{ approvisionnement.montant|monnaie }}</td>
                                   <td class="thick-line text-right" colspan="3"><strong>Totaux prix de revient</strong></td>
-                                  <td class="thick-line text-right">{{ prixRevientTotaux|monnaie }}</td>
+                                  <!--<td class="thick-line text-right">{{ prixRevientTotaux|monnaie }}</td>-->
+                                  <td class="thick-line text-right">{{ (approvisionnement.montant + approvisionnement.fret)|monnaie }}</td>
                                 </tr>
                                 <tr>
                                   <td class="no-line text-right" colspan="3"><strong>Fret</strong></td>

@@ -14,10 +14,28 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-      // Sauvegarde du log de consultation
+      $em = $this->getDoctrine()->getManager();
       $user = $this->getUser();
+
+      // Sauvegarde du log de consultation
       $notification = $this->get('monolog.logger.notification');
       $notification->notice($user.' a consulté le tableau de bord .\n');
+
+      // Affectation de l'user en fonction de son statut
+      $roles[] = $user->getRoles();
+      if ($roles[0][0] === 'ROLE_CAISSE') {
+          $arrete = $em->getRepository('AppBundle:Arrete')->ouvertureCaisse($user->getId());//dump($arrete);die();
+
+          foreach ($arrete as $key => $value) {
+            $arreteStatut= $value->getStatut();
+            $arreteID = $value->getId();
+          }
+          if ((!$arrete) || ($arreteStatut != 1)) {
+            return $this->redirectToRoute('arrete_new');
+          } else {
+            return $this->redirectToRoute('arrete_edit', array('id' => $arreteID));
+          }
+      }
 
         return $this->render('default/index.html.twig');
     }
