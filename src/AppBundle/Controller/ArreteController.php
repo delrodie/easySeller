@@ -46,15 +46,15 @@ class ArreteController extends Controller
         if ($roles[0][0] === 'ROLE_CAISSE') {
             $arrete = $em->getRepository('AppBundle:Arrete')->ouvertureCaisse($user->getUsername());//dump($arrete);die();
 
+            if ($arrete === '[]') die('ici');
+
             foreach ($arrete as $key => $value) {
               $arreteStatut= $value->getStatut();
               $arreteID = $value->getId();
             }
-            if ((!$arrete) || ($arreteStatut != 1)) {
-              return $this->redirectToRoute('arrete_new');
-            } else {
+            if (($arrete) && ($arreteStatut === 1)) {
               return $this->redirectToRoute('arrete_edit', array('id' => $arreteID));
-            }
+            } 
         }elseif (($roles[0][0] === 'ROLE_ADMIN') || ($roles[0][0] === 'ROLE_SUPER_ADMIN')) {
             return $this->redirectToRoute('arrete_index');
         }else{
