@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <meta content="GC SMART" name="description" />
+      <meta content="Eden'Art, Delrodie AMOIKON" name="author" />
+      <title>{% block title %}Connexion{% endblock %}</title>
+
+      {% block stylesheets %}
+      <link href="{{ asset("ressources/vendor/css/bootstrap.min.css")}}" rel="stylesheet" type="text/css">
+      <link href="{{ asset("ressources/vendor/css/icons.css")}}" rel="stylesheet" type="text/css">
+      <link href="{{ asset("ressources/vendor/css/style.css")}}" rel="stylesheet" type="text/css">
+      <link href="{{ asset("ressources/css/easyseller.css")}}" rel="stylesheet" type="text/css">
+      {% endblock %}
+      <link rel="icon" type="image/x-icon" href="{{ asset('ressources/images/favicon.png') }}" />
+    </head>
+    <body>
+      <!-- Begin page -->
+        <div class="accountbg"></div>
+        <div class="wrapper-page">
+            <div class="panel panel-color panel-primary panel-pages">
+
+                <div class="panel-body">
+                    <h3 class="text-center m-t-0 m-b-15">
+                      <a href="#" class="logo">
+                          <span class="logo-e">e</span><span class="logo-eller">asy</span><span class="logo-s">s</span><span class="logo-eller">eller</span>
+                      </a>
+                      <a href="index.html" class="logo-sm"><span>ES</span></a>
+                    </h3>
+                    <!--<h4 class="text-muted text-center m-t-0"><b>Authentification</b></h4>-->
+
+                    <div>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        {% endif %}
+                    </div>
+
+                    {% if app.request.hasPreviousSession %}
+                        {% for type, messages in app.session.flashbag.all() %}
+                            {% for message in messages %}
+                                <div class="flash-{{ type }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <div>
+                        {% block fos_user_content %}
+                        {% endblock fos_user_content %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

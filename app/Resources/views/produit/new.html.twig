@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement des articles{% endblock %}
+
+{% block stylesheets %}
+<!--Select -->
+  <link rel="stylesheet" href="{{ asset('ressources/vendor/plugins/select/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('ressources/vendor/plugins/select/css/select2-bootstrap.min.css')}}">
+
+<!--Morris Chart CSS -->
+  <link rel="stylesheet" href="{{ asset('ressources/vendor/plugins/chartist/css/chartist.min.css')}}">
+  <link href="{{ asset('ressources/vendor/plugins/bootstrap-sweetalert/sweet-alert.css')}}" rel="stylesheet" type="text/css">
+
+  <link href="{{ asset('ressources/vendor/plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('ressources/vendor/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('ressources/vendor/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('ressources/vendor/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" />
+
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="content">
+      <div class="">
+        <div class="page-header-title">
+          <h4 class="page-title">Enregistrement des articles</h4>
+        </div>
+      </div>
+
+      <div class="page-content-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-primary">
+                <div class="panel-body">
+                  <!-- Bouton -->
+                  <div class="row bouton">
+                    <div class="col-sm-4 col-sm-offset-8 text-right">
+                      <a href="{{ path('produit_index')}}">
+                        <button type="button" class="btn btn-primary">Retour à la liste des articles</button>
+                      </a>
+                    </div>
+                  </div>
+                  <!-- \Bouton -->
+                  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                  <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label class="control-label">Categorie
+                              <span class="required"> * </span>
+                            </label>
+                            {{ form_widget(form.categorie) }}
+                            {{ form_errors(form.categorie) }}
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label">Model
+                              <span class="required"> * </span>
+                            </label>
+                            {{ form_widget(form.model) }}
+                            {{ form_errors(form.model) }}
+                          </div>
+                        </div>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group">
+                            <label class="control-label">Description
+                              <span class="required">  </span>
+                            </label>
+                            {{ form_widget(form.description) }}
+                            {{ form_errors(form.description) }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="control-label">Nom
+                              <span class="required"> * </span>
+                            </label>
+                            {{ form_widget(form.nom) }}
+                            {{ form_errors(form.nom) }}
+                          </div>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-1">
+                          <div class="form-group">
+                            <label class="control-label">Prix de vente
+                              <span class="required"> * </span>
+                            </label>
+                            {{ form_widget(form.pv) }}
+                            {{ form_errors(form.pv) }}
+                          </div>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-1">
+                          <div class="form-group">
+                            <label class="control-label">Remise maximum
+                              <span class="required"></span>
+                            </label>
+                            {{ form_widget(form.remise) }}
+                            {{ form_errors(form.remise) }}
+                          </div>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-1">
+                          <div class="form-group">
+                            <label class="control-label">
+                              <span class="required"></span>
+                            </label>
+                            {{ form_widget(form.file) }}
+                            {{ form_errors(form.file) }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group m-b-0">
+                        <div class="text-right bouton-ajout">
+                          <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            Enregistrer le nouvel article
+                          </button>
+                          <button type="reset" class="btn btn-default waves-effect m-l-5">
+                            Annuler
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  </div>
+                  {{ form_end(form) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <!-- Plugins js -->
+        <script src="{{ asset('ressources/vendor/plugins/timepicker/bootstrap-timepicker.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js')}}" type="text/javascript"></script>
+
+        <!-- Plugins Init js -->
+        <script src="{{ asset('ressources/vendor/pages/form-advanced.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/plugins/bootstrap-sweetalert/sweet-alert.min.js')}}"></script>
+        <script src="{{ asset('ressources/vendor/pages/sweet-alert.init.js')}}"></script>
+
+        <script type="text/javascript" src="{{ asset('ressources/vendor/plugins/parsleyjs/parsley.min.js')}}"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('form').parsley();
+            });
+        </script>
+
+        <!-- Select -->
+        <script src="{{ asset('ressources/vendor/plugins/select/js/select2.full.min.js')}}"></script>
+
+        <script type="text/javascript">
+
+        $(".select-categorie").select2({
+          //data: data,
+          placeholder: "-- Selectionnez la catégorie --",
+          allowClear: true
+        })
+      </script>
+
+        <script src="{{ asset('ressources/vendor/js/app.js')}}"></script>
+{% endblock %}

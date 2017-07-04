@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields="usernameCanonical", errorPath="username", message="fos_user.username.already_used", groups={"Default", "Registration", "Profile"})
  * @UniqueEntity(fields="emailCanonical", errorPath="email", message="fos_user.email.already_used", groups={"Default", "Registration", "Profile"})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User extends BaseUser {
 
@@ -42,6 +43,13 @@ class User extends BaseUser {
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $firstLogin;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arrete", mappedBy="caissiere")
+     */
+     private $arretes;
+
 
     public function __construct() {
         parent::__construct();
@@ -140,4 +148,38 @@ class User extends BaseUser {
         return in_array($name, $this->getGroupNames());
     }
 
+
+    /**
+     * Add arrete
+     *
+     * @param \AppBundle\Entity\Arrete $arrete
+     *
+     * @return User
+     */
+    public function addArrete(\AppBundle\Entity\Arrete $arrete)
+    {
+        $this->arretes[] = $arrete;
+
+        return $this;
+    }
+
+    /**
+     * Remove arrete
+     *
+     * @param \AppBundle\Entity\Arrete $arrete
+     */
+    public function removeArrete(\AppBundle\Entity\Arrete $arrete)
+    {
+        $this->arretes->removeElement($arrete);
+    }
+
+    /**
+     * Get arretes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretes()
+    {
+        return $this->arretes;
+    }
 }
